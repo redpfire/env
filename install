@@ -33,7 +33,7 @@ hook_commons()
     ln -sf $HOME/env/.bin $HOME/.bin
     ln -sf $HOME/env/.vim $HOME/.vim
 
-    mkdir $HOME/workspace
+    [ ! -e $HOME/workspace ] && mkdir $HOME/workspace
 }
 
 hook_zsh()
