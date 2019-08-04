@@ -47,6 +47,7 @@ hook_xst()
 hook_xorg()
 {
     ln -sf $HOME/env/.xinitrc $HOME/.xinitrc
+    [ ! -e $HOME/.Xresources ] && ln -sf $HOME/env/.Xresources $HOME/.Xresources
 }
 
 hook_ssh()
