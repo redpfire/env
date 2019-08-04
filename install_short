@@ -1,0 +1,6 @@
+#!/bin/bash
+
+[ ! -e $HOME/env ] && git clone https://github.com/redpfire/env $HOME/env
+
+echo "+ Continuing from disk"
+exec $HOME/env/install
