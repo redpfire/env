@@ -29,7 +29,7 @@ hook_commons()
 
 hook_zsh()
 {
-    sh <(curl -fsSL \
+    RUNZSH=no sh <(curl -fsSL \
     https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)
     ln -sf $HOME/env/.zshrc $HOME/.zshrc
     ln -sf $HOME/env/.zprofile $HOME/.zprofile
@@ -62,4 +62,4 @@ for s in 'git' 'curl' 'zsh'; do presence $s; done
 [ ! -e $HOME/env ] && git clone https://github.com/redpfire/env $HOME/env \
                    && exec $HOME/env/.bin/install
 
-for h in 'zsh' 'commons' 'xst' 'xorg' 'ssh'; do hook_$h; done
+for h in 'zsh' 'commons' 'xst' 'xorg' 'ssh'; do echo "+ Running hook $h"; hook_$h; done
