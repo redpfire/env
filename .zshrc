@@ -109,4 +109,4 @@ if [ -e /bin/exa ]; then
     alias la='ls -a'
 fi
 alias vim='nvim'
-eu() { pushd; cd $HOME/env; git pull; popd; }
+eu() { pushd; cd $HOME/env; git pull; ./install update; popd; }
