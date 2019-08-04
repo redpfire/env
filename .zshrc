@@ -100,8 +100,10 @@ source $ZSH/oh-my-zsh.sh
 alias c='clear'
 
 # supplement ls to exa
-alias ls='exa' # a modern replacement for ls
-alias l='ls -la'
-alias ll='ls -l'
-alias la='ls -a'
+if [ -n `which exa` ]; do
+    alias ls='exa' # a modern replacement for ls
+    alias l='ls -la'
+    alias ll='ls -l'
+    alias la='ls -a'
+done
 alias vim='nvim'
