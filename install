@@ -12,6 +12,12 @@ presence()
     [ $? -gt 0 ] && die "Please install $1."
 }
 
+hook()
+{
+    echo "+ Running hook $1"
+    hook_$1
+}
+
 hook_commons()
 {
     [ ! -e $HOME/.config ] && mkdir $HOME/.config
@@ -67,4 +73,8 @@ for s in 'git' 'curl' 'zsh'; do presence $s; done
                    && echo "+ Continuing from disk" \
                    && exec $HOME/env/install
 
-for h in 'zsh' 'commons' 'xst' 'xorg' 'ssh'; do echo "+ Running hook $h"; hook_$h; done
+if [ $1 = "update" ]; then
+    for u in 'commons' 'xorg'; do hook $u; done
+else
+    for h in 'zsh' 'commons' 'xst' 'xorg' 'ssh'; do hook $h; done
+fi
