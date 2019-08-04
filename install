@@ -74,7 +74,7 @@ for s in 'git' 'curl' 'zsh'; do presence $s; done
                    && exec $HOME/env/install
 
 if [ $1 = "update" ]; then
-    for u in 'commons' 'xorg'; do hook $u; done
+    for u in 'commons' 'xst'; do hook $u; done
 else
     for h in 'zsh' 'commons' 'xst' 'xorg' 'ssh'; do hook $h; done
 fi
