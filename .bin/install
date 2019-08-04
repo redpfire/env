@@ -60,9 +60,14 @@ hook_ssh()
     pkill ssh-agent
 }
 
+hook_cleanup()
+{
+    rm -f $HOME/env/.bin/install
+}
+
 for s in 'git' 'curl' 'zsh'; do presence $s; done
 
 [ ! -e $HOME/env ] && git clone https://github.com/redpfire/env $HOME/env \
                    && exec $HOME/env/.bin/install
 
-for h in 'zsh' 'commons' 'xst' 'xorg' 'ssh'; do echo "+ Running hook $h"; hook_$h; done
+for h in 'zsh' 'commons' 'xst' 'xorg' 'ssh' 'cleanup'; do echo "+ Running hook $h"; hook_$h; done
