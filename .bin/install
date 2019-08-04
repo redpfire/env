@@ -22,6 +22,7 @@ hook_commons()
         ln -sf $d $HOME/.local/share/`basename $d`
     done
     ln -sf $HOME/env/.bin $HOME/.bin
+    ln -sf $HOME/env/.vim $HOME/.vim
 
     mkdir $HOME/workspace
 }
