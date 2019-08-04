@@ -1,0 +1,53 @@
+#!/bin/bash
+
+die()
+{
+    echo $1 1>2
+    exit 1
+}
+
+presence()
+{
+    $1 --help &>/dev/null
+    [ $? -gt 0 ] && die "Please install $1."
+}
+
+hook_commons()
+{
+    for d in `find $HOME/env/.config -mindepth 1 -maxdepth 1`; do
+        ln -sf $d $HOME/.config/`basename $d`
+    done
+
+    for d in `find $HOME/env/.local/share -mindepth 1 -maxdepth 1`; do
+        ln -sf $d $HOME/.local/share/`basename $d`
+    done
+    ln -sf $HOME/env/.bin $HOME/.bin
+
+    mkdir $HOME/workspace
+}
+
+hook_zsh()
+{
+    sh <(curl -fsSL \
+    https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)
+    ln -sf $HOME/env/.zshrc $HOME/.zshrc
+    ln -sf $HOME/env/.zprofile $HOME/.zprofile
+}
+
+hook_xst()
+{
+    xst --help &>/dev/null || return
+    ln -sf $HOME/env/.Xresources_xst $HOME/.Xresources
+}
+
+hook_xorg()
+{
+    ln -sf $HOME/env/.xinitrc $HOME/.xinitrc
+}
+
+for s in 'git' 'curl' 'zsh'; do presence $s; done
+
+[ ! -e $HOME/env ] && git clone https://github.com/redpfire/env $HOME/env \
+                   && exec $HOME/env/.bin/install
+
+for h in 'zsh' 'commons' 'xst' 'xorg'; do hook_$h; done
