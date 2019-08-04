@@ -63,6 +63,7 @@ hook_ssh()
 for s in 'git' 'curl' 'zsh'; do presence $s; done
 
 [ ! -e $HOME/env ] && git clone https://github.com/redpfire/env $HOME/env \
+                   && echo "+ Continuing from disk" \
                    && exec $HOME/env/install
 
 for h in 'zsh' 'commons' 'xst' 'xorg' 'ssh'; do echo "+ Running hook $h"; hook_$h; done
