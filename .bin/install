@@ -14,6 +14,9 @@ presence()
 
 hook_commons()
 {
+    [ ! -e $HOME/.config ] && mkdir $HOME/.config
+    [ ! -e $HOME/.local/share ] && mkdir -p "$HOME/.local/share"
+
     for d in `find $HOME/env/.config -mindepth 1 -maxdepth 1`; do
         ln -sf $d $HOME/.config/`basename $d`
     done
