@@ -100,7 +100,7 @@ source $ZSH/oh-my-zsh.sh
 alias c='clear'
 
 # supplement ls to exa
-if [ -n `which exa` ]; then
+if [ -e /bin/exa ]; then
     alias ls='exa' # a modern replacement for ls
     alias l='ls -la'
     alias ll='ls -l'
