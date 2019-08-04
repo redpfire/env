@@ -45,9 +45,20 @@ hook_xorg()
     ln -sf $HOME/env/.xinitrc $HOME/.xinitrc
 }
 
+hook_ssh()
+{
+    [ -z `which ssh` ] && return
+    [ -e $HOME/.ssh ] && return
+    mkdir $HOME/.ssh
+    eval $(ssh-agent)
+    ssh-keygen
+    sleep 0.5
+    pkill ssh-agent
+}
+
 for s in 'git' 'curl' 'zsh'; do presence $s; done
 
 [ ! -e $HOME/env ] && git clone https://github.com/redpfire/env $HOME/env \
                    && exec $HOME/env/.bin/install
 
-for h in 'zsh' 'commons' 'xst' 'xorg'; do hook_$h; done
+for h in 'zsh' 'commons' 'xst' 'xorg' 'ssh'; do hook_$h; done
