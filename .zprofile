@@ -1,5 +1,5 @@
 
-for p in "/snap/bin" "$HOME/arduino" "$HOME/.cargo/bin"; do
+for p in "$HOME/.bin" "/snap/bin" "$HOME/arduino" "$HOME/.cargo/bin"; do
     [ -e $p ] && P="$p:$P"
 done
 
