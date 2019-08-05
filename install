@@ -83,4 +83,5 @@ if [ $1 = "update" ]; then
     for u in 'commons' 'xst'; do hook $u; done
 else
     for h in 'zsh' 'commons' 'xst' 'xorg' 'ssh' 'nvim'; do hook $h; done
+    echo "+ All done."
 fi
