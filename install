@@ -23,21 +23,21 @@ hook_commons()
     [ ! -e $HOME/.config ] && mkdir $HOME/.config
     [ ! -e $HOME/.local/share ] && mkdir -p "$HOME/.local/share"
 
-    for d in `find $HOME/env/.config -mindepth 1 -maxdepth 1`; do
+    for d in `find $HOME/.env/.config -mindepth 1 -maxdepth 1`; do
         ln -sf $d $HOME/.config/`basename $d`
     done
 
-    for d in `find $HOME/env/.local/share -mindepth 1 -maxdepth 1`; do
+    for d in `find $HOME/.env/.local/share -mindepth 1 -maxdepth 1`; do
         ln -sf $d $HOME/.local/share/`basename $d`
     done
-    ln -sf $HOME/env/.bin $HOME/.bin
+    ln -sf $HOME/.env/.bin $HOME/.bin
 
     [ ! -e $HOME/workspace ] && mkdir $HOME/workspace
 }
 
 hook_nvim()
 {
-    ln -sf $HOME/env/.vim $HOME/.vim
+    ln -sf $HOME/.env/.vim $HOME/.vim
     nvim +q || return
     nvim +PlugInstall +qa
 }
@@ -46,20 +46,20 @@ hook_zsh()
 {
     RUNZSH=no sh <(curl -fsSL \
     https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)
-    ln -sf $HOME/env/.zshrc $HOME/.zshrc
-    ln -sf $HOME/env/.zprofile $HOME/.zprofile
+    ln -sf $HOME/.env/.zshrc $HOME/.zshrc
+    ln -sf $HOME/.env/.zprofile $HOME/.zprofile
 }
 
 hook_xst()
 {
     xst --help &>/dev/null || return
-    ln -sf $HOME/env/.Xresources_xst $HOME/.Xresources
+    ln -sf $HOME/.env/.Xresources_xst $HOME/.Xresources
 }
 
 hook_xorg()
 {
-    ln -sf $HOME/env/.xinitrc $HOME/.xinitrc
-    [ ! -e $HOME/.Xresources ] && ln -sf $HOME/env/.Xresources $HOME/.Xresources
+    ln -sf $HOME/.env/.xinitrc $HOME/.xinitrc
+    [ ! -e $HOME/.Xresources ] && ln -sf $HOME/.env/.Xresources $HOME/.Xresources
 }
 
 hook_ssh()
@@ -75,9 +75,9 @@ hook_ssh()
 
 for s in 'git' 'curl' 'zsh'; do presence $s; done
 
-[ ! -e $HOME/env ] && git clone https://github.com/redpfire/env $HOME/env \
+[ ! -e $HOME/.env ] && git clone https://github.com/redpfire/env $HOME/.env \
                    && echo "+ Continuing from disk" \
-                   && exec $HOME/env/install
+                   && exec $HOME/.env/install
 
 if [ $1 = "update" ]; then
     for u in 'commons' 'xst'; do hook $u; done
