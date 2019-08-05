@@ -31,9 +31,15 @@ hook_commons()
         ln -sf $d $HOME/.local/share/`basename $d`
     done
     ln -sf $HOME/env/.bin $HOME/.bin
-    ln -sf $HOME/env/.vim $HOME/.vim
 
     [ ! -e $HOME/workspace ] && mkdir $HOME/workspace
+}
+
+hook_nvim()
+{
+    ln -sf $HOME/env/.vim $HOME/.vim
+    nvim +q || return
+    nvim +PlugInstall +qa
 }
 
 hook_zsh()
@@ -76,5 +82,5 @@ for s in 'git' 'curl' 'zsh'; do presence $s; done
 if [ $1 = "update" ]; then
     for u in 'commons' 'xst'; do hook $u; done
 else
-    for h in 'zsh' 'commons' 'xst' 'xorg' 'ssh'; do hook $h; done
+    for h in 'zsh' 'commons' 'xst' 'xorg' 'ssh' 'nvim'; do hook $h; done
 fi
