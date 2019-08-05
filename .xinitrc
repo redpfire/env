@@ -3,5 +3,10 @@
 # key repeat rate
 xset r rate 200 30
 
-[ -e $HOME/.wm ] && exec `cat $HOME/.wm`
-exec qtile
+${WM:=qtile}
+
+[ -e $HOME/.wm ] && WM=`cat $HOME/.wm`
+
+[ $WM = "berry" ] && sxhkd -c $HOME/.config/berry/sxhkdrc &
+
+exec $WM
