@@ -2,7 +2,7 @@
 " NeoVim 'vimrc' of aika
 
 " https://github.com/junegunn/vim-plug#neovim
-call plug#begin('~/.local/share/plugged')
+call plug#begin('~/.local/share/nvim/plugged')
 
 " Arduino IDE vim plugin
 Plug 'stevearc/vim-arduino'
@@ -87,6 +87,9 @@ nnoremap <Leader>q :bdelete<CR>
 " https://www.youtube.com/watch?v=cTBgtN-s2Zw
 vnoremap <Leader><Tab> <Esc>/<++><CR>"_c4l
 map <Leader><Tab> <Esc>/<++><CR>"_c4l
+
+" clear last search pattern
+map <Leader>/ :let @/ = ""<CR>
 
 " trailing whitespace highlighting
 highlight ExtraWhitespace ctermbg=white
