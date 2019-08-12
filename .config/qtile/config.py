@@ -54,7 +54,7 @@ keys = [
     # Unsplit = 1 window displayed, like Max layout, but still with
     # multiple stack panes
     Key([mod, "shift"], "Return", lazy.layout.toggle_split()),
-    Key([mod], "Return", lazy.spawn("xst -f \"Iosevka Custom:pixelsize=12:antialias=true:autohint=true\"")),
+    Key([mod], "Return", lazy.spawn("xst")),
 
     # Toggle between different layouts as defined below
     Key([mod], "Tab", lazy.next_layout()),
