@@ -38,6 +38,7 @@ hook_commons()
     done
     ln -sf $HOME/.env/.bin $HOME/.bin
     ln -sf $HOME/.env/.fonts $HOME/.fonts
+    ln -sf $HOME/.env/.tmux.conf $HOME/.tmux.conf
 
     [ ! -e $HOME/workspace ] && mkdir $HOME/workspace
 }
