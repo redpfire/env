@@ -37,6 +37,7 @@ hook_commons()
         ln -sf $d $pth
     done
     ln -sf $HOME/.env/.bin $HOME/.bin
+    ln -sf $HOME/.env/.fonts $HOME/.fonts
 
     [ ! -e $HOME/workspace ] && mkdir $HOME/workspace
 }
