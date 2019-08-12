@@ -7,8 +7,7 @@
 # Copyright (c) 2013 Tao Sauvage
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
-# of this software and associated documentation files (the "Software"), to deal
-# in the Software without restriction, including without limitation the rights
+# of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights
 # to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
 # copies of the Software, and to permit persons to whom the Software is
 # furnished to do so, subject to the following conditions:
@@ -52,7 +51,7 @@ keys = [
     # Unsplit = 1 window displayed, like Max layout, but still with
     # multiple stack panes
     Key([mod, "shift"], "Return", lazy.layout.toggle_split()),
-    Key([mod], "Return", lazy.spawn("xterm")),
+    Key([mod], "Return", lazy.spawn("xst -f \"Iosevka Custom:pixelsize=12:antialias=true:autohint=true\"")),
 
     # Toggle between different layouts as defined below
     Key([mod], "Tab", lazy.next_layout()),
@@ -76,12 +75,13 @@ for i in groups:
 
 layouts = [
     layout.Max(),
-    layout.Stack(num_stacks=2)
+    layout.Stack(num_stacks=2, border_focus='#606060'),
+    layout.MonadWide(border_focus='#606060', border_width=1)
 ]
 
 widget_defaults = dict(
-    font='sans',
-    fontsize=12,
+    font='Iosevka Custom',
+    fontsize=10,
     padding=3,
 )
 extension_defaults = widget_defaults.copy()
@@ -93,9 +93,8 @@ screens = [
                 widget.GroupBox(),
                 widget.Prompt(),
                 widget.WindowName(),
-                widget.TextBox("default config", name="default"),
                 widget.Systray(),
-                widget.Clock(format='%Y-%m-%d %a %I:%M %p'),
+                widget.Clock(format='%a %m/%d %I:%M'),
             ],
             24,
         ),
