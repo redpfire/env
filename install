@@ -87,6 +87,7 @@ for s in 'git' 'curl' 'zsh'; do presence $s; done
 
 if [ $1 = "update" ]; then
     for u in 'commons' 'xst'; do hook $u; done
+elif [ -n $1 ]; then hook $1;
 else
     for h in 'zsh' 'commons' 'xst' 'xorg' 'ssh' 'nvim'; do hook $h; done
     echo "+ All done."
