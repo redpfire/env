@@ -33,8 +33,11 @@ mod = "mod4"
 
 keys = [
     # Switch between windows in current stack pane
-    Key([mod], "k", lazy.layout.down()),
-    Key([mod], "j", lazy.layout.up()),
+    Key([mod, "shift"], "k", lazy.layout.down()),
+    Key([mod, "shift"], "j", lazy.layout.up()),
+
+    Key([mod], "k", lazy.screen.next_group()),
+    Key([mod], "j", lazy.screen.prev_group()),
 
     # Move windows up or down in current stack
     Key([mod, "control"], "k", lazy.layout.shuffle_down()),
@@ -90,10 +93,12 @@ screens = [
     Screen(
         bottom=bar.Bar(
             [
-                widget.GroupBox(),
+                widget.GroupBox(highlight_method='text', urgent_alert_method='text', foreground='#909090', this_current_screen_border='#909090'),
                 widget.Prompt(),
                 widget.WindowName(),
+                widget.Notify(default_timeout=5),
                 widget.Systray(),
+                widget.Battery(format='  {char}{percent:2.0%}', update_interval=5),
                 widget.Clock(format='%a %m/%d %I:%M'),
             ],
             24,
@@ -130,6 +135,7 @@ floating_layout = layout.Floating(float_rules=[
     {'wmclass': 'maketag'},  # gitk
     {'wname': 'branchdialog'},  # gitk
     {'wname': 'pinentry'},  # GPG key password entry
+    {'wname': 'Discord Updater'},
     {'wmclass': 'ssh-askpass'},  # ssh-askpass
 ])
 auto_fullscreen = True
