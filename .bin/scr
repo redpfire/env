@@ -1,0 +1,6 @@
+#!/bin/sh
+# simple screenshot tool
+
+path=`mktemp --dry-run --suffix=.png`
+scrot $P -e "mv $f $path; xclip -sel c -target image/png -i $path; \
+            notify-send \"Screenshot taken\""
