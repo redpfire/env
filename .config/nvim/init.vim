@@ -2,7 +2,7 @@
 " NeoVim 'vimrc' of aika
 
 " https://github.com/junegunn/vim-plug#neovim
-call plug#begin('~/.local/share/plugged')
+call plug#begin('~/.local/share/nvim/plugged')
 
 " Arduino IDE vim plugin
 Plug 'stevearc/vim-arduino'
