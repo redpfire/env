@@ -1,107 +1,11 @@
 #!/bin/bash
 
-die()
-{
-    echo $1 1>&2
-    exit 1
-}
+[ -e $HOME/.env ] && . $HOME/.env/fun
 
 presence()
 {
     $1 --help &>/dev/null
     [ $? -gt 0 ] && die "Please install $1."
-}
-
-hook()
-{
-    echo "+ Running hook $1"
-    hook_$1
-}
-
-sym_f()
-{
-    [ -e $2 ] && rm $2
-    _sym $1 $2
-}
-
-sym()
-{
-    [ -e $2 ] && return
-    _sym $1 $2
-}
-
-_sym()
-{
-    ln -sf $1 $2
-}
-
-hook_commons()
-{
-    [ ! -e $HOME/.config ] && mkdir $HOME/.config
-    [ ! -e $HOME/.local/share ] && mkdir -p "$HOME/.local/share"
-
-    for d in `find $HOME/.env/.config -mindepth 1 -maxdepth 1`; do
-        pth=$HOME/.config/`basename $d`
-        [ -e $pth ] && [ ! -h $pth ] && continue
-
-        sym_f $d $pth
-    done
-
-    for d in `find $HOME/.env/.local/share -mindepth 1 -maxdepth 1`; do
-        pth=$HOME/.local/share/`basename $d`
-        [ -e $pth ] && [ ! -h $pth ] && continue
-
-        sym_f $d $pth
-    done
-    sym $HOME/.env/.bin $HOME/.bin
-    sym $HOME/.env/.fonts $HOME/.fonts
-    sym $HOME/.env/.tmux.conf $HOME/.tmux.conf
-
-    [ ! -e $HOME/workspace ] && mkdir $HOME/workspace
-}
-
-hook_nvim()
-{
-    sym_f $HOME/.env/.vim $HOME/.vim
-    nvim +q || return
-    nvim +PlugInstall +qa
-}
-
-hook_zsh()
-{
-    RUNZSH=no sh <(curl -fsSL \
-    https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)
-    sym_f $HOME/.env/.zshrc $HOME/.zshrc
-    sym_f $HOME/.env/.zprofile $HOME/.zprofile
-}
-
-hook_xst()
-{
-    xst --help &>/dev/null || return
-    sym_f $HOME/.env/.Xresources_xst $HOME/.Xresources
-}
-
-hook_xorg()
-{
-    sym_f $HOME/.env/.xinitrc $HOME/.xinitrc
-    [ ! -e $HOME/.Xresources ] && sym_f $HOME/.env/.Xresources $HOME/.Xresources
-    if [ \( ! -e $HOME/.fonts_app \) -a \( xset --help &>/dev/null \) ]; then
-        touch $HOME/.fonts_app
-        echo "Updating fonts cache"
-        xset +fp $HOME/.fonts
-        fc-cache -r
-    fi
-}
-
-hook_ssh()
-{
-    [ -z `which ssh` ] && return
-    [ -e $HOME/.ssh ] && return
-    mkdir $HOME/.ssh
-    eval $(ssh-agent)
-    ssh-keygen
-    sleep 0.5
-    pkill ssh-agent
 }
 
 for s in 'git' 'curl' 'zsh'; do presence $s; done
@@ -110,10 +14,11 @@ for s in 'git' 'curl' 'zsh'; do presence $s; done
                    && echo "+ Continuing from disk" \
                    && exec $HOME/.env/install
 
-if [ $1 = "update" ]; then
-    for u in 'commons' 'xst'; do hook $u; done
-elif [ -n $1 ]; then hook $1;
+if [ "$1" = "update" ]; then
+    run-parts $HOME/.env/hooks/update
+elif [ -n "`find $HOME/.env/hooks -name \"$1\"`" ]; then
+    hook $1
 else
-    for h in 'zsh' 'commons' 'xst' 'xorg' 'ssh' 'nvim'; do hook $h; done
+    run-parts $HOME/.env/hooks
     echo "+ All done."
 fi

@@ -1,0 +1,27 @@
+#!/bin/sh
+
+. $HOME/.env/fun
+
+[ ! -e $HOME/.config ] && mkdir $HOME/.config
+[ ! -e $HOME/.local/share ] && mkdir -p "$HOME/.local/share"
+
+for d in `find $HOME/.env/.config -mindepth 1 -maxdepth 1`; do
+    pth=$HOME/.config/`basename $d`
+    [ -e $pth ] && [ ! -h $pth ] && continue
+
+    sym_f $d $pth
+done
+
+for d in `find $HOME/.env/.local/share -mindepth 1 -maxdepth 1`; do
+    pth=$HOME/.local/share/`basename $d`
+    [ -e $pth ] && [ ! -h $pth ] && continue
+
+    sym_f $d $pth
+done
+sym $HOME/.env/.bin $HOME/.bin
+sym $HOME/.env/.fonts $HOME/.fonts
+sym $HOME/.env/.tmux.conf $HOME/.tmux.conf
+
+[ ! -e $HOME/workspace ] && mkdir $HOME/workspace
+
+exit 0

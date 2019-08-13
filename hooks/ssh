@@ -1,0 +1,13 @@
+#!/bin/sh
+
+. $HOME/.env/fun
+
+[ -z `which ssh` ] && exit 0
+[ -e $HOME/.ssh ] && exit 0
+mkdir $HOME/.ssh
+eval $(ssh-agent)
+ssh-keygen
+sleep 0.5
+pkill ssh-agent
+
+exit 0

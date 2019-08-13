@@ -1,0 +1,9 @@
+#!/bin/sh
+
+. $HOME/.env/fun
+
+sym_f $HOME/.env/.vim $HOME/.vim
+nvim +q || exit 0
+nvim +PlugInstall +qa
+
+exit 0

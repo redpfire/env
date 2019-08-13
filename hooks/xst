@@ -1,0 +1,8 @@
+#!/bin/sh
+
+. $HOME/.env/fun
+
+xst --help &>/dev/null || exit 0
+sym_f $HOME/.env/.Xresources_xst $HOME/.Xresources
+
+exit 0

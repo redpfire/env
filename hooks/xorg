@@ -1,0 +1,14 @@
+#!/bin/sh
+
+. $HOME/.env/fun
+
+sym_f $HOME/.env/.xinitrc $HOME/.xinitrc
+[ ! -e $HOME/.Xresources ] && sym_f $HOME/.env/.Xresources $HOME/.Xresources
+if [ \( ! -e $HOME/.fonts_app \) -a \( xset --help &>/dev/null \) ]; then
+    touch $HOME/.fonts_app
+    echo "Updating fonts cache"
+    xset +fp $HOME/.fonts
+    fc-cache -r
+fi
+
+exit 0

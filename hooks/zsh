@@ -1,0 +1,10 @@
+#!/bin/sh
+
+. $HOME/.env/fun
+
+RUNZSH=no sh <(curl -fsSL \
+https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)
+sym_f $HOME/.env/.zshrc $HOME/.zshrc
+sym_f $HOME/.env/.zprofile $HOME/.zprofile
+
+exit 0
