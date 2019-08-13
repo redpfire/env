@@ -63,6 +63,9 @@ keys = [
     Key([mod, "control"], "r", lazy.restart()),
     Key([mod, "control"], "q", lazy.shutdown()),
     Key([mod], "r", lazy.spawncmd()),
+    
+    Key([], "Print", lazy.spawn("scr")),
+    Key(['control'], "Print", lazy.spawn("scr -s")),
 ]
 
 groups = [Group(i) for i in "mindscape"]
