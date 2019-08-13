@@ -17,7 +17,7 @@ for s in 'git' 'curl' 'zsh'; do presence $s; done
 if [ "$1" = "update" ]; then
     run-parts $HOME/.env/hooks/update
 elif [ -n "`find $HOME/.env/hooks -name \"$1\"`" ]; then
-    hook $1
+    $HOME/.env/hooks/$1
 else
     run-parts $HOME/.env/hooks
     echo "+ All done."
