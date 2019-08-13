@@ -18,6 +18,23 @@ hook()
     hook_$1
 }
 
+sym_f()
+{
+    [ -e $2 ] && rm $2
+    _sym $1 $2
+}
+
+sym()
+{
+    [ -e $2 ] && return
+    _sym $1 $2
+}
+
+_sym()
+{
+    ln -sf $1 $2
+}
+
 hook_commons()
 {
     [ ! -e $HOME/.config ] && mkdir $HOME/.config
@@ -27,25 +44,25 @@ hook_commons()
         pth=$HOME/.config/`basename $d`
         [ -e $pth ] && [ ! -h $pth ] && continue
 
-        ln -sf $d $pth
+        sym_f $d $pth
     done
 
     for d in `find $HOME/.env/.local/share -mindepth 1 -maxdepth 1`; do
         pth=$HOME/.local/share/`basename $d`
         [ -e $pth ] && [ ! -h $pth ] && continue
 
-        ln -sf $d $pth
+        sym_f $d $pth
     done
-    ln -sf $HOME/.env/.bin $HOME/.bin
-    ln -sf $HOME/.env/.fonts $HOME/.fonts
-    ln -sf $HOME/.env/.tmux.conf $HOME/.tmux.conf
+    sym $HOME/.env/.bin $HOME/.bin
+    sym $HOME/.env/.fonts $HOME/.fonts
+    sym $HOME/.env/.tmux.conf $HOME/.tmux.conf
 
     [ ! -e $HOME/workspace ] && mkdir $HOME/workspace
 }
 
 hook_nvim()
 {
-    ln -sf $HOME/.env/.vim $HOME/.vim
+    sym_f $HOME/.env/.vim $HOME/.vim
     nvim +q || return
     nvim +PlugInstall +qa
 }
@@ -54,20 +71,20 @@ hook_zsh()
 {
     RUNZSH=no sh <(curl -fsSL \
     https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)
-    ln -sf $HOME/.env/.zshrc $HOME/.zshrc
-    ln -sf $HOME/.env/.zprofile $HOME/.zprofile
+    sym_f $HOME/.env/.zshrc $HOME/.zshrc
+    sym_f $HOME/.env/.zprofile $HOME/.zprofile
 }
 
 hook_xst()
 {
     xst --help &>/dev/null || return
-    ln -sf $HOME/.env/.Xresources_xst $HOME/.Xresources
+    sym_f $HOME/.env/.Xresources_xst $HOME/.Xresources
 }
 
 hook_xorg()
 {
-    ln -sf $HOME/.env/.xinitrc $HOME/.xinitrc
-    [ ! -e $HOME/.Xresources ] && ln -sf $HOME/.env/.Xresources $HOME/.Xresources
+    sym_f $HOME/.env/.xinitrc $HOME/.xinitrc
+    [ ! -e $HOME/.Xresources ] && sym_f $HOME/.env/.Xresources $HOME/.Xresources
     if [ \( ! -e $HOME/.fonts_app \) -a \( xset --help &>/dev/null \) ]; then
         touch $HOME/.fonts_app
         echo "Updating fonts cache"
