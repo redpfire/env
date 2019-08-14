@@ -82,6 +82,7 @@ nnoremap <Leader>k :bnext!<CR>
 nnoremap <Leader>j :bprevious!<CR>
 nnoremap <Leader>l :CtrlPBuffer<CR>
 nnoremap <Leader>q :bdelete<CR>
+nnoremap <Leader>Q :bdelete!<CR>
 
 " placeholder replacer stolen from Luke Smith
 " https://www.youtube.com/watch?v=cTBgtN-s2Zw
