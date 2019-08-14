@@ -7,7 +7,7 @@ xset r rate 200 30
 xinput set-prop 16 315 1
 
 # enable natural scrolling
-xinput set-prop 16 297 1
+# xinput set-prop 16 297 1
 
 # reload Xresources
 xrdb ~/.Xresources
