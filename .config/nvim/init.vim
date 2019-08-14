@@ -78,8 +78,8 @@ set nostartofline " don't jump to first char of the line
 command! Q q " map that annoying shift Q to normal q
 
 " buffer navigation
-nnoremap <Leader>k :bnext<CR>
-nnoremap <Leader>j :bprevious<CR>
+nnoremap <Leader>k :bnext!<CR>
+nnoremap <Leader>j :bprevious!<CR>
 nnoremap <Leader>l :CtrlPBuffer<CR>
 nnoremap <Leader>q :bdelete<CR>
 
