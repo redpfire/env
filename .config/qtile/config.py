@@ -96,12 +96,14 @@ screens = [
     Screen(
         bottom=bar.Bar(
             [
-                widget.GroupBox(highlight_method='text', urgent_alert_method='text', foreground='#909090', this_current_screen_border='#909090'),
+                widget.GroupBox(highlight_method='text', urgent_alert_method='text', active='#909090', foreground='#ffffff', this_current_screen_border='#ffffff'),
                 widget.Prompt(),
                 widget.WindowName(),
                 widget.Notify(default_timeout=5),
                 widget.Systray(),
-                widget.Battery(format='  {char}{percent:2.0%}', update_interval=5),
+                widget.Volume(channel="Speaker",emoji=True,fontsize=16),
+                widget.Battery(format='{char}{percent:2.0%}', update_interval=5,
+                    charge_char='⚡', discharge_char='🔋'),
                 widget.Clock(format='%a %m/%d %I:%M'),
             ],
             24,
