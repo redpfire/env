@@ -1,0 +1,16 @@
+#!/bin/bash
+
+normal=`xrandr --verbose | sed -n 2p| grep -o normal | wc -w`
+right=`xrandr --verbose | sed -n 2p| grep -o right | wc -w`
+left=`xrandr --verbose | sed -n 2p| grep -o left | wc -w`
+inverted=`xrandr --verbose | sed -n 2p| grep -o inverted | wc -w`
+
+if [[ "$normal" -eq 2 ]]
+	then
+		xrandr -o 1
+fi
+
+if [[ "$left" -eq 2 ]]
+	then
+		xrandr -o 0
+fi
