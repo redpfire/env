@@ -1,0 +1,8 @@
+#!/bin/sh
+
+. $HOME/.env/fun
+
+symf $HOME/.env/.xinitrc_chromebook $HOME/.xinitrc
+symf $HOME/.env/.xbindkeysrc_chromebook $HOME/.xbindkeysrc
+
+exit 0
