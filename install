@@ -19,6 +19,6 @@ if [ "$1" = "update" ]; then
 elif [ -n "`find $HOME/.env/hooks -name \"$1\"`" ]; then
     $HOME/.env/hooks/$1
 else
-    run-parts $HOME/.env/hooks
+    run-parts $HOME/.env/hooks/install
     echo "+ All done."
 fi
