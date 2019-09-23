@@ -14,7 +14,7 @@ xrdb ~/.Xresources
 
 setxkbmap pl
 
-WM=${WM:=qtile}
+: ${WM:=qtile}
 
 [ -e $HOME/.wm ] && WM=`cat $HOME/.wm`
 
