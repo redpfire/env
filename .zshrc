@@ -116,7 +116,7 @@ eu() {
     pushd
     cd $HOME/.env
     if ! git diff --quiet remotes/origin/HEAD; then
-        git pull; ./install update
+        git pull --stat origin master && ./install update
     fi
     popd
 }
