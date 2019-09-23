@@ -28,7 +28,7 @@ xss-lock -- $HOME/.lock.sh &
 # wallpaper (i'm shooked i want to use it)
 feh --bg-fill $HOME/.wall.jpg
 
-${WM:=qtile}
+WM=${WM:=qtile}
 
 [ -e $HOME/.wm ] && WM=`cat $HOME/.wm`
 
