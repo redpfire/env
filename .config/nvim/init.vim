@@ -47,6 +47,8 @@ Plug 'morhetz/gruvbox'
 " light theme
 Plug 'ayu-theme/ayu-vim'
 
+Plug 'aurieh/discord.nvim', { 'do': ':UpdateRemotePlugins'}
+
 call plug#end()
 filetype on
 set relativenumber
