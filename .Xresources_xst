@@ -40,7 +40,8 @@ st.prompt_char:       $
 st.imstyle:           root
 
 ! opacity==255 means what terminal will be not transparent, 0 - fully transparent
-st.opacity:      255
+! st.opacity:      220
+st.opacity:          255
 
 ! Defaults taken from base16-twilight colorscheme.
 ! st.foreground:   #a7a7a7
