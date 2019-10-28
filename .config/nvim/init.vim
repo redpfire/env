@@ -164,6 +164,10 @@ imap <down> <nop>
 imap <left> <nop>
 imap <right> <nop>
 
+" active split selection
+nmap <silent> <C-j> :wincmd h<CR>
+nmap <silent> <C-k> :wincmd l<CR>
+
 " arduino mappings
 let g:arduino_serial_port_globs = ['/dev/ttyUSB*']
 let g:arduino_dir = '~/arduino'
