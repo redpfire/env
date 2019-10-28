@@ -120,3 +120,5 @@ eu() {
     fi
     popd
 }
+alias wir='nmcli d wifi list --rescan yes'
+alias wic='nmcli d wifi c '
