@@ -23,7 +23,7 @@ xbindkeys # bind chromebook keys
 setxkbmap pl
 
 # screen lock after lid close
-xss-lock -- $HOME/.lock.sh &
+#xss-lock -- $HOME/.lock.sh &
 
 # wallpaper (i'm shooked i want to use it)
 feh --bg-fill $HOME/.wall.jpg
