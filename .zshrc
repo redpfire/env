@@ -121,4 +121,10 @@ eu() {
     popd
 }
 alias wir='nmcli d wifi list --rescan yes'
-alias wic='nmcli d wifi c '
+wic() {
+    ($(r="`nmcli d wifi c $1 2>&1`" || notify-send -u critical "$0: $r") &)
+}
+wirc() {
+    notify-send "Rescanning and connecting to $1"
+    ($(wir &>/dev/null ; wic $1) &)
+}
