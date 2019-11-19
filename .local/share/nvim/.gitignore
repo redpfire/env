@@ -6,3 +6,7 @@ swap
 
 plugged/*.*
 plugged
+
+log
+
+rplugin.vim
