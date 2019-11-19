@@ -1,6 +1,12 @@
 
 " NeoVim 'vimrc' of aika
 
+if empty(glob('~/.vim/autoload/plug.vim'))
+  silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
+    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+endif
+
 " https://github.com/junegunn/vim-plug#neovim
 call plug#begin('~/.local/share/nvim/plugged')
 
@@ -47,7 +53,8 @@ Plug 'morhetz/gruvbox'
 " light theme
 Plug 'ayu-theme/ayu-vim'
 
-Plug 'aurieh/discord.nvim', { 'do': ':UpdateRemotePlugins'}
+"Plug 'aurieh/discord.nvim', { 'do': ':UpdateRemotePlugins'}
+" currently broken
 
 call plug#end()
 filetype on
