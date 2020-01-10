@@ -60,6 +60,9 @@ keys = [
     Key([mod], "Tab", lazy.next_layout()),
     Key([mod], "q", lazy.window.kill()),
 
+    Key([mod, "control"], "m", lazy.spawn("udevil_mu")),
+    Key([mod, "control"], "u", lazy.spawn("udevil_mu -u")),
+
     Key([mod, "control"], "r", lazy.restart()),
     Key([mod, "control"], "q", lazy.shutdown()),
     Key([mod], "r", lazy.spawncmd()),
@@ -104,7 +107,7 @@ screens = [
                 widget.Volume(channel="Speaker",emoji=True,fontsize=16),
                 widget.Battery(format='{char}{percent:2.0%}', update_interval=5,
                     charge_char='⚡', discharge_char='🔋'),
-                widget.Clock(format='%a %m/%d %I:%M'),
+                widget.Clock(format='%a %m/%d %H:%M'),
                 widget.Wlan(format='📡 ', disconnected_message='✖️ ',
                     interface='wlp1s0', padding=5, update_interval=3,
                     fontsize=13, foreground='505050'),
