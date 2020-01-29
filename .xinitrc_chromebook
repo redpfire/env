@@ -26,7 +26,13 @@ setxkbmap pl
 #xss-lock -- $HOME/.lock.sh &
 
 # wallpaper (i'm shooked i want to use it)
-feh --bg-fill $HOME/.wall.jpg
+if [ -e "$HOME/.wall.png" ]; then
+    feh --bg-fill $HOME/.wall.png
+elif [ -e "$HOME/.wall.jpg" ]; then
+    feh --bg-fill $HOME/.wall.jpg
+fi
+
+~/.bin/poweroff.py &
 
 : ${WM:=qtile}
 
