@@ -1,0 +1,99 @@
+#!/bin/sh
+
+DMENU=${DMENU:-dmenu}
+
+DEV_LABEL="/dev/disk/by-label/"
+TMP="/tmp/dmnt-udevil-$(date +%s)"
+
+trap "rm -f $TMP" EXIT
+
+opt_mount_type=0
+opt_ignore_filter=0
+opt_notify=1
+udevil_cmd="mount"
+
+usage() {
+    cat <<-EOF
+	usage: udevil [-mudihn]
+         -m Mount devices (default)
+	     -u Unmount devices
+	     -i Ignore filter and list all devices in /dev
+	     -n Don't pass udevil output to notify-send
+	     -h Print help
+	EOF
+
+}
+
+format_n() {
+    if [ "$3" = "l" ]; then
+        p="$(printf "$2" | cut -d'/' -f5)"
+        rp="$(realpath "$2" -L)"
+        bn="$(basename "$rp")"
+    else
+        p="$(printf "$2" | cut -d'/' -f3)"
+        bn="$p"
+    fi
+    f="$(lsblk -f | awk "/$bn/ {print \$2}")"
+    if [ "$1" = "mount" ]; then
+        echo "$p($f)"
+    else
+        m="$(mount | awk "/\\/dev\\/$bn/")"
+        [[ -n "$m" ]] && echo "$p($f)"
+    fi
+}
+
+dmenu_mnt_label() {
+        prompt="$udevil_cmd by-label:"
+        lbls="$(find $DEV_LABEL* -exec sh -c "format_n "$udevil_cmd" '{}' l" \;)"
+        res="$(printf "By device\n%s" "$lbls" | ${DMENU} -b -h 24 -fn "Iosevka Custom:pixelsize=11:antialias=true:autohint=true" -p "$prompt")"
+
+        path="$DEV_LABEL/$res"
+
+        [[ "$res" = "By device" ]] && dmenu_mnt_device && exit
+
+        [[ -z $res ]] && echo "Cancelled." && exit
+        dmenu_mnt "$path"
+}
+
+dmenu_mnt_device() {
+        prompt="$udevil_cmd by-device:"
+        res="$(find /dev -maxdepth 1 -not -type d -regextype sed -regex ".*/s[dr][a-z][0-9]" -exec sh -c "format_n "$udevil_cmd" '{}'" \; | ${DMENU} -b -fn "Iosevka Custom:pixelsize=11:antialias=true:autohint=true" -h 24 -p "$prompt")"
+
+        path="/dev/$res"
+
+        [[ -z $res ]] && echo "Cancelled." && exit
+        dmenu_mnt "$path"
+}
+
+dmenu_mnt() {
+    a="$(printf "$1" | cut -d'(' -f1)"
+    udevil $udevil_cmd "$a" > "$TMP" 2>&1
+    exitc=$?
+
+    [[ "$udevil_cmd" = "umount" ]] && exit
+    if [[ $opt_notify -eq 1 ]]; then
+        case $exitc in
+            0) urgency="normal";;
+            *) urgency="critical";;
+        esac
+        notify-send -u $urgency "$(<$TMP)"
+    else
+        cat "$TMP"
+    fi
+}
+
+export -f format_n
+
+while getopts ':mudhin' opt; do
+    case "$opt" in
+        m) ;;
+        u) udevil_cmd="umount";;
+        d) opt_mount_type=1;;
+        i) opt_ignore_filter=1;;
+        h) usage && exit;;
+        n) opt_notify=0;;
+        /?) echo "Unrecognized command: $OPTARG";;
+    esac
+done
+
+dmenu_mnt_label && exit
