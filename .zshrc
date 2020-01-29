@@ -115,6 +115,7 @@ alias vim='nvim'
 eu() {
     pushd
     cd $HOME/.env
+    git fetch
     if ! git diff --quiet remotes/origin/HEAD; then
         git pull --stat origin master && ./install update
     fi
