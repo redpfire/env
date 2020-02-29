@@ -1,0 +1,19 @@
+#!/bin/sh
+
+set -e
+
+PROJNAME="$1"
+FW="/tmp/firmware.bin"
+PTH="/home/aika/workspace/rust/${PROJNAME}"
+
+rm -f ${FW}
+ssh kup "cd ${PTH}; ~/.cargo/bin/cargo build --release && arm-none-eabi-objcopy -O binary target/thumbv7m-none-eabi/release/${PROJNAME} firmware.bin"
+scp kup:"${PTH}/firmware.bin" ${FW}
+if [ "$2" = "-f" ]; then
+    stm32flash -w ${FW} /dev/ttyUSB0
+else
+    printf "J" > /dev/ttyACM0 || true
+    sleep 0.5
+    dfu-util -d 41ca:2137 -a 2 -D ${FW} || \
+        dfu-util -d 41ca:2137 -a 0 -D ${FW}
+fi

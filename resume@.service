@@ -1,0 +1,14 @@
+[Unit]
+Description=Lock the screen
+Before=sleep.target
+
+[Service]
+User=%I
+Environment=DISPLAY=:0.0
+Type=forking
+ExecStartPre=/home/aika/.lock.sh ; compton --dbus -Gfb
+ExecStart=i3lock -u -i /tmp/screen.png
+ExecStartPost=pkill compton
+
+[Install]
+WantedBy=sleep.target
