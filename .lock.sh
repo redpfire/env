@@ -5,7 +5,7 @@ ICON=$HOME/.lock.icon.png
 TMPBG=/tmp/screen.png
 #scrot -e "mv \$f $TMPBG"
 #xset dpms force off
-#pkill compton
+pkill compton
 sleep 1
 #compton --dbus -Gf &
 #convert $TMPBG -scale 10% -scale 1000% $TMPBG
