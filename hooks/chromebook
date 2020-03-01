@@ -5,21 +5,23 @@
 sym_f $HOME/.env/.xinitrc_chromebook $HOME/.xinitrc
 sym_f $HOME/.env/.xbindkeysrc_chromebook $HOME/.xbindkeysrc
 if [ -e '/usr/share/alsa/ucm' ]; then
-    cp -R $HOME/.env/ucm/* /usr/share/alsa/ucm
+    sudo cp -R $HOME/.env/ucm/* /usr/share/alsa/ucm
+elif [ -e '/usr/share/alsa/ucm2' ]; then
+    sudo cp -R $HOME/.env/ucm2/* /usr/share/alsa/ucm2
 else
     printf "\n\n\n\tThere's no alsa installed. You might want to run this script again once you install it.\n\n\n"
 fi
 
 if [ -e '/etc/systemd/system' ]; then
-    cp $HOME/.env/resume@.service /etc/systemd/system/
-    cp $HOME/.env/suspend@.service /etc/systemd/system/
+    sudo cp $HOME/.env/resume@.service /etc/systemd/system/
+    sudo cp $HOME/.env/suspend@.service /etc/systemd/system/
     sudo systemctl daemon-reload
     sudo systemctl enable "resume@`whoami`"
     sudo systemctl enable "suspend@`whoami`"
     if [ -z "`grep HandlePowerKey /etc/systemd/logind.conf`" ]; then
-        sed -i 's/.*HandlePowerKey.*/HandlePowerKey=ignore/'
+        sudo sed -i 's/.*HandlePowerKey.*/HandlePowerKey=ignore/' /etc/systemd/logind.conf
     else
-        echo 'HandlePowerKey=ignore' >> /etc/systemd/logind.conf
+        echo 'HandlePowerKey=ignore' | sudo tee -a /etc/systemd/logind.conf
     fi
 fi
 echo "Please install imagemagick and i3lock."
