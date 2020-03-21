@@ -57,12 +57,12 @@
     F10
 
 # screenshot
-"scr"
+"scr -jeff"
     m:0x1 + c:76
     Shift + F10
 
 # region screenshot
-"scr -s"
+"scr -jeff -s"
     m:0x9 + c:76
     Shift+Alt + F10
 

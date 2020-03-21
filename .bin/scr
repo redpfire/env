@@ -2,5 +2,21 @@
 # simple screenshot tool
 
 path=`mktemp --dry-run --suffix=.png`
-scrot $@ -e "mv \$f $path; xclip -sel c -target image/png -i $path; \
-            notify-send \"Screenshot taken\""
+: ${TOKENPATH:=$HOME/.my.namejeff}
+token="`cat $TOKENPATH`"
+
+case "$1" in
+    -jeff)
+        shift
+        scrot $@ -e "mv \$f $path" || exit 1
+        url=`curl -s -H "token: $token" -F"files[]=@$path" \
+            https://my.namejeff.com/api/upload | jq -r '.files[0].url'`
+        printf $url | xclip -sel c
+        notify-send "Screenshot taken"
+    ;;
+    *)
+        scrot $@ -e "mv \$f $path" || exit 1
+        xclip -sel c -target image/png -i $path
+        notify-send "Screenshot taken"
+    ;;
+esac
