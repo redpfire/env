@@ -121,7 +121,9 @@ autocmd BufWritePost init.vim silent so %
 " Xresources etc
 autocmd BufWritePost ~/.Xresources,~/.Xdefaults silent !xrdb %
 
-nnoremap ; :
+" unmapping it because i've learnt that is very useful!!!
+" when you use `f` (find) it jumps to the next find (`;`)
+" nnoremap ; :
 set tabstop=4 softtabstop=0 expandtab shiftwidth=4 smarttab
 
 " alduin colorscheme
