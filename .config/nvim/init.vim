@@ -53,6 +53,9 @@ Plug 'morhetz/gruvbox'
 " light theme
 Plug 'ayu-theme/ayu-vim'
 
+" gcc for one line; gc for multiple
+Plug 'tpope/vim-commentary'
+
 "Plug 'aurieh/discord.nvim', { 'do': ':UpdateRemotePlugins'}
 " currently broken
 
@@ -92,6 +95,9 @@ nnoremap <Leader>j :bprevious!<CR>
 nnoremap <Leader>l :CtrlPBuffer<CR>
 nnoremap <Leader>q :bdelete<CR>
 nnoremap <Leader>Q :bdelete!<CR>
+
+" yank to system clipboard
+vnoremap <Leader>y "*y
 
 " placeholder replacer stolen from Luke Smith
 " https://www.youtube.com/watch?v=cTBgtN-s2Zw
