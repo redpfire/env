@@ -56,6 +56,10 @@ Plug 'ayu-theme/ayu-vim'
 " gcc for one line; gc for multiple
 Plug 'tpope/vim-commentary'
 
+" JSX syntax highlighting
+Plug 'yuezk/vim-js'
+Plug 'maxmellon/vim-jsx-pretty'
+
 "Plug 'aurieh/discord.nvim', { 'do': ':UpdateRemotePlugins'}
 " currently broken
 
