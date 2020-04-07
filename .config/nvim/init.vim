@@ -50,6 +50,9 @@ Plug 'vim-airline/vim-airline-themes'
 " gruvbox theme
 Plug 'morhetz/gruvbox'
 
+" codeschool theme
+Plug 'antlypls/vim-colors-codeschool'
+
 " light theme
 Plug 'ayu-theme/ayu-vim'
 
@@ -142,7 +145,10 @@ let ayucolor="light"
 
 " gruvbox colorscheme
 " https://github.com/morhetz/gruvbox
-colorscheme gruvbox
+" colorscheme gruvbox
+
+" codeschool for a brief refresh
+colorscheme codeschool
 
 " line at 80'th column ; this is optimal for a habit of writing good length
 " code
