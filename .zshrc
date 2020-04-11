@@ -129,3 +129,60 @@ wirc() {
     notify-send "Rescanning and connecting to $1"
     ($(wir &>/dev/null ; wic $1) &)
 }
+
+# rebase flow helpers and git shortcuts
+unalias gc gb gp
+alias gs='git status'
+alias gl='git --no-pager log --oneline -n20'
+alias gu='git add -u'
+alias ga='git add -i'
+# commit
+gc() {
+    if [ -z $1 ]; then
+        ga
+        fp=`mktemp`
+        $EDITOR $fp
+        msg="`cat $fp`"
+        rm $fp
+    else
+        msg="$@"
+    fi
+    git commit -m "$msg"
+}
+# switch to a new branch
+gb() {
+    [ -z $1 ] && echo "Specify a branch!" && return 1
+    git checkout master
+    git pull
+    git checkout -b $1
+}
+# create a fixup commit and squash
+alias gf='fixup'
+fixup() {
+    if [ -z $1 ]; then
+        tofix=`gl | head -n1 | awk '{print $1}'`
+    else
+        tofix=$1
+    fi
+    un=$(sed -n -e "/$tofix/,\$p" <(gl) | sed -n 2p | awk '{print $1}')
+    git commit --fixup $tofix
+    GIT_SEQUENCE_EDITOR=: git rebase -i --autosquash $un
+}
+# push to master or rebase current branch to master
+gp() {
+    br=`git rev-parse --abbrev-ref HEAD`
+    if [ $br = "master" ]; then
+        git push || git push -u origin master
+    else
+        printf "Do you want to push current branch to master(y/N)? "
+        read c
+        [ -z $c ] && return 1
+        [ \( $c != "y" \) -a \( $c != "Y" \) ] && return 1
+        git fetch origin
+        git rebase origin/master
+        git checkout master
+        git pull
+        git rebase $br
+        git push && git branch -d $br
+    fi
+}
