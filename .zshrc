@@ -180,7 +180,7 @@ gp() {
     br=`git rev-parse --abbrev-ref HEAD`
     [ -z $br ] && echo "Not a git repository" && return 1
     if [ $br = "master" ]; then
-        git push || git push -u origin master
+        git push $@ || git push -u origin master $@
     else
         printf "Do you want to push current branch to master(y/N)? "
         read c
