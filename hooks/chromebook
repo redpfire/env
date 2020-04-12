@@ -4,12 +4,12 @@
 
 sym_f $HOME/.env/.xinitrc_chromebook $HOME/.xinitrc
 sym_f $HOME/.env/.xbindkeysrc_chromebook $HOME/.xbindkeysrc
-if [ -e '/usr/share/alsa/ucm' ]; then
-    echo "+ Installing ucm for alsa"
-    sudo cp -R $HOME/.env/ucm/* /usr/share/alsa/ucm
-elif [ -e '/usr/share/alsa/ucm2' ]; then
+if [ -e '/usr/share/alsa/ucm2' ]; then
     echo "+ Installing ucm2 for alsa"
     sudo cp -R $HOME/.env/ucm2/* /usr/share/alsa/ucm2
+elif [ -e '/usr/share/alsa/ucm' ]; then
+    echo "+ Installing ucm for alsa"
+    sudo cp -R $HOME/.env/ucm/* /usr/share/alsa/ucm
 else
     printf "\n\n\n\tThere's no alsa installed. You might want to run this script again once you install it.\n\n\n"
 fi
