@@ -1,14 +1,17 @@
 #!/bin/bash
 
+die() { echo $1 1>&2; }
 [ -e $HOME/.env ] && . $HOME/.env/fun
 
 presence()
 {
     which $1 &>/dev/null
-    [ $? -gt 0 ] && die "Please install $1."
+    [ $? -gt 0 ] && die "Please install $1." && return 1
 }
 
-for s in 'git' 'curl' 'zsh'; do presence $s; done
+SQ=0
+for s in 'git' 'curl' 'zsh'; do presence $s || SQ=1; done
+[ $SQ -gt 0 ] && exit 1
 
 [ ! -e $HOME/.env ] && git clone https://github.com/redpfire/env $HOME/.env \
                    && echo "+ Continuing from disk" \
