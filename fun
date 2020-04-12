@@ -33,7 +33,7 @@ ask() {
     if [ "$2" = "y" ]; then
         echo "$1? [Y/n]: \c"
         read c
-        if [[ "$c" == Y* ]] || [[ "$c" == y* ]] || [ -z "$c" ]; then
+        if [ "$c" = "y" ] || [ "$c" = "Y" ] || [ -z "$c" ]; then
             return 0
         else
             return 1
@@ -41,7 +41,7 @@ ask() {
     else
         echo "$1? [y/N]: \c"
         read c
-        if [[ "$c" == N* ]] || [[ "$c" == n* ]] || [ -z "$c" ]; then
+        if [ "$c" = "N" ] || [ "$c" = "n" ] || [ -z "$c" ]; then
             return 1
         else
             return 0

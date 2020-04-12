@@ -5,7 +5,7 @@
 mkdir -p $HOME/.env/.var
 
 echo "Hello, thanks for using my dotfiles."
-echo "I have to ask you a couple of questions to set you up:"
+echo "I have to ask you a couple of questions to set you up:\n"
 
 ask "Do you run a chromebook" "n"
 [ $? -e 0 ] && $HOME/.env/install chromebook
