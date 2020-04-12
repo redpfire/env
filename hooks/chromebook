@@ -16,7 +16,7 @@ fi
 
 ask "Do you want to install suspend/resume into systemd" "y"
 
-if [ \( $? -e 0 \) -a \( -e '/etc/systemd/system' \) ]; then
+if [ \( "$?" = "0" \) -a \( -e '/etc/systemd/system' \) ]; then
     sudo cp $HOME/.env/resume@.service /etc/systemd/system/
     sudo cp $HOME/.env/suspend@.service /etc/systemd/system/
     sudo systemctl daemon-reload

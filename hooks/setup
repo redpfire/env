@@ -8,22 +8,29 @@ echo "Hello, thanks for using my dotfiles."
 echo "I have to ask you a couple of questions to set you up:\n"
 
 ask "Do you run a chromebook" "n"
-[ $? -e 0 ] && $HOME/.env/install chromebook
+[ "$?" = "0" ] && $HOME/.env/install chromebook
 
-echo "What wm would you want to use? [qtile] \c"
-read c
-[ "$c" != "qtile" ] && printf "$c" > $HOME/.env/.var/wm
-
-ask "Do you want plain background as a wallpaper" "n"
-if [ $? -e 0 ]; then
-    touch $HOME/.env/.var/plain_wallpaper
-    echo "What color would you like? (in hex) [#131313] \c"
+ask "Do you want to run xorg" "y"
+if [ "$?" = "0" ]; then
+    echo "What wm would you want to use? [qtile] \c"
     read c
-    [ "$c" != "#131313" ] && printf "$c" > $HOME/.env/.var/color
-fi
+    if [ "$c" != "qtile" ] && [ -n "$c" ]; then
+        printf "$c" > $HOME/.env/.var/wm
+    fi
 
-ask "Do you want to automatically launch startx" "y"
-[ $? -e 1 ] && touch $HOME/.env/.var/nostartx
+    ask "Do you want plain background as a wallpaper" "n"
+    if [ "$?" = "0" ]; then
+        touch $HOME/.env/.var/plain_wallpaper
+        echo "What color would you like? (in hex) [#131313] \c"
+        read c
+        [ "$c" != "#131313" ] && printf "$c" > $HOME/.env/.var/color
+    fi
+
+    ask "Do you want to automatically launch startx" "y"
+    [ "$?" = "1" ] && touch $HOME/.env/.var/nostartx
+else
+    touch $HOME/.env/.var/nostartx
+fi
 
 echo "\nFiles from $HOME/.env/.config were symlinked to $HOME/.config"
 : ${WM:=qtile}
