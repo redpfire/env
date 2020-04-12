@@ -22,6 +22,9 @@ if [ $? -e 0 ]; then
     [ "$c" != "#131313" ] && printf "$c" > $HOME/.env/.var/color
 fi
 
+ask "Do you want to automatically launch startx" "y"
+[ $? -e 1 ] && touch $HOME/.env/.var/nostartx
+
 echo "\nFiles from $HOME/.env/.config were symlinked to $HOME/.config"
 : ${WM:=qtile}
 [ -e "$HOME/.env/.var/wm" ] && WM="`cat $HOME/.env/.var/wm`"
