@@ -120,7 +120,7 @@ eu() {
         echo "[env] Would you like to update? [Y/n]: \c"
         read c
         if [[ "$c" == Y* ]] || [[ "$c" == y* ]] || [ -z "$c" ]; then
-            git pull --stat origin master && ./install update
+            git reset --hard origin/master && ./install update
         fi
     fi
     popd
