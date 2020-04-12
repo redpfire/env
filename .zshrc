@@ -117,10 +117,15 @@ eu() {
     cd $HOME/.env
     git fetch
     if ! git diff --quiet ..remote/origin; then
-        git pull --stat origin master && ./install update
+        echo "[env] Would you like to update? [Y/n]: \c"
+        read c
+        if [[ "$c" == Y* ]] || [[ "$c" == y* ]] || [ -z "$c" ]; then
+            git pull --stat origin master && ./install update
+        fi
     fi
     popd
 }
+eu
 alias wir='nmcli d wifi list --rescan yes'
 wic() {
     ($(r="`nmcli d wifi c $1 2>&1`" || notify-send -u critical "$0: $r") &)
