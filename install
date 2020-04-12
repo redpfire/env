@@ -4,7 +4,7 @@
 
 presence()
 {
-    $1 --help &>/dev/null
+    which $1
     [ $? -gt 0 ] && die "Please install $1."
 }
 
