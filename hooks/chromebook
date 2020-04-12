@@ -33,6 +33,5 @@ echo "Please install imagemagick and i3lock."
 sym_f $HOME/.env/.lock.sh $HOME/.lock.sh
 sym_f $HOME/.env/.lock.icon.png $HOME/.lock.icon.png
 sym_f $HOME/.env/.wall.png $HOME/.wall.png
-sym_f $HOME/.env/.fehbg $HOME/.fehbg
 
 exit 0
