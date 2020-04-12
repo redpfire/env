@@ -1,5 +1,9 @@
 #!/bin/sh
 
+. $HOME/.zprofile
+
+xsetroot -cursor_name ptr_left
+
 # key repeat rate
 xset r rate 200 30
 
@@ -14,9 +18,20 @@ xrdb ~/.Xresources
 
 setxkbmap pl
 
-: ${WM:=qtile}
+if [ ! -e "$HOME/.env/.var/plain_wallpaper" ]; then
+    if [ -e "$HOME/.wall.png" ]; then
+        feh --bg-fill $HOME/.wall.png
+    elif [ -e "$HOME/.wall.jpg" ]; then
+        feh --bg-fill $HOME/.wall.jpg
+    fi
+else
+    : ${BGCOLOR:="#131313"}
+    [ -e "$HOME/.env/.var/color" ] && BGCOLOR="`cat $HOME/.env/.var/color`"
+    xsetroot -bg "$BGCOLOR" -cursor_name ptr_left
+fi
 
-[ -e $HOME/.wm ] && WM=`cat $HOME/.wm`
+: ${WM:=qtile}
+[ -e $HOME/.env/.var/wm ] && WM=`cat $HOME/.env/.var/wm`
 
 [ $WM = "berry" ] && sxhkd -c $HOME/.config/berry/sxhkdrc &
 
