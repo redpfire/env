@@ -23,13 +23,22 @@ if [ "$?" = "0" ]; then
         touch $HOME/.env/.var/plain_wallpaper
         echo "What color would you like? (in hex) [#131313] \c"
         read c
-        [ "$c" != "#131313" ] && printf "$c" > $HOME/.env/.var/color
+        if [ "$c" != "#131313" ] && [ -n "$c" ]; then
+            printf "$c" > $HOME/.env/.var/color
+        fi
     fi
 
     ask "Do you want to automatically launch startx" "y"
     [ "$?" = "1" ] && touch $HOME/.env/.var/nostartx
 else
     touch $HOME/.env/.var/nostartx
+fi
+
+ask "Do you want to use a custom PS1 prefix" "n"
+if [ "$?" = "0" ]; then
+    echo "How would you like to prefix PS1? [] \c"
+    read p
+    [ -n "$p" ] && printf "$p" > $HOME/.env/.var/prompt
 fi
 
 echo "\nFiles from $HOME/.env/.config were symlinked to $HOME/.config"
@@ -43,3 +52,6 @@ if [ -e "$HOME/.env/.var/plain_wallpaper" ]; then
     BG="${COLOR}"
 fi
 echo "Background is ${BG}."
+: ${CP:="not set"}
+[ -e "$HOME/.env/.var/prompt" ] && CP="`cat $HOME/.env/.var/prompt`"
+echo "Custom prompt is ${CP}"

@@ -77,6 +77,8 @@ plugins=(git zsh-autosuggestions zsh-syntax-highlighting)
 
 source $ZSH/oh-my-zsh.sh
 
+[ -e "$HOME/.env/.var/prompt" ] && export PS1="(`cat $HOME/.env/.var/prompt`) $PS1"
+
 # User configuration
 
 # export MANPATH="/usr/local/man:$MANPATH"
