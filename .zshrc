@@ -127,7 +127,6 @@ eu() {
     fi
     popd
 }
-eu
 alias wir='nmcli d wifi list --rescan yes'
 wic() {
     ($(r="`nmcli d wifi c $1 2>&1`" || notify-send -u critical "$0: $r") &)
