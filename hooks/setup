@@ -1,0 +1,35 @@
+#!/bin/sh
+
+. $HOME/.env/fun
+
+mkdir -p $HOME/.env/.var
+
+echo "Hello, thanks for using my dotfiles."
+echo "I have to ask you a couple of questions to set you up:"
+
+ask "Do you run a chromebook" "n"
+[ $? -e 0 ] && $HOME/.env/install chromebook
+
+echo "What wm would you want to use? [qtile] \c"
+read c
+[ "$c" != "qtile" ] && printf "$c" > $HOME/.env/.var/wm
+
+ask "Do you want plain background as a wallpaper" "n"
+if [ $? -e 0 ]; then
+    touch $HOME/.env/.var/plain_wallpaper
+    echo "What color would you like? (in hex) [#131313] \c"
+    read c
+    [ "$c" != "#131313" ] && printf "$c" > $HOME/.env/.var/color
+fi
+
+echo "\nFiles from $HOME/.env/.config were symlinked to $HOME/.config"
+: ${WM:=qtile}
+[ -e "$HOME/.env/.var/wm" ] && WM="`cat $HOME/.env/.var/wm`"
+echo "Default WM set to ${WM}."
+: ${BG="an image"}
+if [ -e "$HOME/.env/.var/plain_wallpaper" ]; then
+    : ${COLOR:="#131313"}
+    [ -e "$HOME/.env/.var/color" ] && COLOR="`cat $HOME/.env/.var/color`"
+    BG="${COLOR}"
+fi
+echo "Background is ${BG}."
