@@ -115,8 +115,8 @@ alias vim='nvim'
 eu() {
     pushd
     cd $HOME/.env
-    git fetch
-    if ! git diff --quiet ..remote/origin; then
+    git fetch -q
+    if ! git diff --quiet ..origin/master; then
         echo "[env] Would you like to update? [Y/n]: \c"
         read c
         if [[ "$c" == Y* ]] || [[ "$c" == y* ]] || [ -z "$c" ]; then
@@ -176,6 +176,7 @@ fixup() {
 # push to master or rebase current branch to master
 gp() {
     br=`git rev-parse --abbrev-ref HEAD`
+    [ -z $br ] && echo "Not a git repository" && return 1
     if [ $br = "master" ]; then
         git push || git push -u origin master
     else
