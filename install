@@ -1,12 +1,11 @@
 #!/bin/bash
 
-die() { echo $1 1>&2; }
+die() { echo $1 1>&2; return 1; }
 [ -e $HOME/.env ] && . $HOME/.env/fun
 
 presence()
 {
-    which $1 &>/dev/null
-    [ $? -gt 0 ] && die "Please install $1." && return 1
+    which $1 &>/dev/null || die "Please install $1."
 }
 
 SQ=0
