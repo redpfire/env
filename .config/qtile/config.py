@@ -32,61 +32,78 @@ from typing import List  # noqa: F401
 mod = "mod4"
 
 keys = [
-    # Switch between windows in current stack pane
-    Key([mod, "shift"], "k", lazy.layout.down()),
-    Key([mod, "shift"], "j", lazy.layout.up()),
 
-    Key([mod], "k", lazy.screen.next_group()),
-    Key([mod], "j", lazy.screen.prev_group()),
+    # spawn the terminal
+    Key([mod], "Return", lazy.spawn('xst')),
 
-    # Move windows up or down in current stack
-    Key([mod, "control"], "k", lazy.layout.shuffle_down()),
-    Key([mod, "control"], "j", lazy.layout.shuffle_up()),
+    # Move focus in current stack pane
+    Key([mod], "j", lazy.layout.down()),
+    Key([mod], "k", lazy.layout.up()),
+
+    # Move windows in current stack
+    Key([mod, "shift"], "j", lazy.layout.shuffle_down()),
+    Key([mod, "shift"], "k", lazy.layout.shuffle_up()),
+
+    # Expand window / increase number in master pane (Tile)
+    Key([mod], "h", lazy.layout.grow(), lazy.layout.increase_nmaster()),
+    Key([mod], "l", lazy.layout.shrink(), lazy.layout.decrease_nmaster()),
+
+    # Normalize window size ratios
+    Key([mod], "n", lazy.layout.normalize()),
+
+    # Switch which side main pane occupies
+    Key([mod, "shift"], "space", lazy.layout.rotate(), lazy.layout.flip()),
 
     # Switch window focus to other pane(s) of stack
     Key([mod], "space", lazy.layout.next()),
 
-    # Swap panes of split stack
-    Key([mod, "shift"], "space", lazy.layout.rotate()),
+    # Key([mod], "k", lazy.screen.next_group()),
+    # Key([mod], "j", lazy.screen.prev_group()),
 
-    # Toggle between split and unsplit sides of stack.
-    # Split = all windows displayed
-    # Unsplit = 1 window displayed, like Max layout, but still with
-    # multiple stack panes
-    Key([mod, "shift"], "Return", lazy.layout.toggle_split()),
-    Key([mod], "Return", lazy.spawn("xst")),
+    # Open prompt
+    Key([mod], "r", lazy.spawncmd()),
 
     # Toggle between different layouts as defined below
     Key([mod], "Tab", lazy.next_layout()),
+
     Key([mod], "q", lazy.window.kill()),
+    Key([mod, "control"], "r", lazy.restart()),
+    Key([mod, "control"], "q", lazy.shutdown()),
 
     Key([mod, "control"], "m", lazy.spawn("udevil_mu")),
     Key([mod, "control"], "u", lazy.spawn("udevil_mu -u")),
 
-    Key([mod, "control"], "r", lazy.restart()),
-    Key([mod, "control"], "q", lazy.shutdown()),
-    Key([mod], "r", lazy.spawncmd()),
-    
     Key([], "Print", lazy.spawn("scr")),
     Key(['control'], "Print", lazy.spawn("scr -s")),
 ]
 
-groups = [Group(i) for i in "mindscape"]
+group_names = [("www", {'layout': 'max'}),
+               ("term", {'layout': 'monadtall'}),
+               ("disc", {'layout': 'max'}),
+               ("misc", {'layout': 'monadtall'}),
+               ("misc2", {'layout': 'monadtall'}),
+               ("gfx", {'layout': 'floating'}),
+               ("obs", {'layout': 'max'})]
 
-for i in groups:
-    keys.extend([
-        # mod1 + letter of group = switch to group
-        Key([mod], i.name, lazy.group[i.name].toscreen()),
+group_keys = ['a', 's', 'd', 'f', 'i', 'o', 'p']
 
-        # mod1 + shift + letter of group = switch to & move focused window to group
-        Key([mod, "shift"], i.name, lazy.window.togroup(i.name)),
-    ])
+groups = [Group(name, **kwargs) for name, kwargs in group_names]
+
+for i, (name, kwargs) in enumerate(group_names):
+    keys.append(Key([mod], group_keys[i], lazy.group[name].toscreen()))
+    keys.append(Key([mod, "shift"], group_keys[i], lazy.window.togroup(name)))
+
+layout_theme = {
+                "border_width": 1,
+                # "margin": 6,
+                "border_focus": "#606060"
+               }
 
 layouts = [
-    layout.Max(),
-    #layout.Stack(num_stacks=2, border_focus='#606060'),
-    #layout.MonadWide(border_focus='#606060', border_width=1)
-    layout.MonadTall(border_focus='#606060', border_width=1)
+    layout.MonadTall(**layout_theme),
+    layout.Max(**layout_theme),
+    layout.Tile(shift_windows=True, **layout_theme),
+    layout.Floating(**layout_theme),
 ]
 
 widget_defaults = dict(
@@ -101,17 +118,25 @@ screens = [
         bottom=bar.Bar(
             [
                 widget.GroupBox(highlight_method='text', urgent_alert_method='text', active='#909090', foreground='#ffffff', this_current_screen_border='#ffffff'),
+                widget.Sep(linewidth = 0,padding = 10),
                 widget.Prompt(),
                 widget.WindowName(),
                 widget.Notify(default_timeout=5),
-                widget.Systray(),
-                widget.Volume(channel="Speaker",emoji=True,fontsize=16),
-                widget.Battery(format='{char}{percent:2.0%}', update_interval=5,
-                    charge_char='⚡', discharge_char='🔋'),
+                widget.Volume(channel="Speaker",emoji=True,fontsize=12),
+                widget.Sep(linewidth = 0,padding = 5),
+                widget.TextBox(text='📡', fontsize=12),
+                widget.Wlan(format='{essid}', disconnected_message='✖️ ',
+                    interface='wlp1s0', update_interval=3,
+                    foreground='ffffff'),
+                widget.Sep(linewidth = 0,padding = 5),
+                widget.TextBox(text='🔋', fontsize=12),
+                widget.Battery(format='{percent:2.0%}{char}', update_interval=5,
+                    charge_char='⚡', discharge_char=''),
+                widget.Sep(linewidth = 0,padding = 5),
                 widget.Clock(format='%a %m/%d %H:%M'),
-                widget.Wlan(format='📡 ', disconnected_message='✖️ ',
-                    interface='wlp1s0', padding=5, update_interval=3,
-                    fontsize=13, foreground='505050'),
+                widget.Sep(linewidth = 0,padding = 5),
+                widget.Systray(),
+                widget.Sep(linewidth = 0,padding = 5),
             ],
             24,
         ),
