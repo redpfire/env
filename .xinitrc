@@ -16,7 +16,7 @@ xinput set-prop 16 315 1
 # reload Xresources
 xrdb ~/.Xresources
 
-setxkbmap pl
+setxkbmap pl -option caps:super
 
 if [ ! -e "$HOME/.env/.var/plain_wallpaper" ]; then
     if [ -e "$HOME/.wall.png" ]; then

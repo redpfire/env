@@ -19,7 +19,7 @@ xrdb ~/.Xresources
 setxkbmap pl chromebook
 
 xbindkeys # bind chromebook keys
-setxkbmap pl
+setxkbmap pl -option caps:super
 
 # screen lock after lid close
 #xss-lock -- $HOME/.lock.sh &
