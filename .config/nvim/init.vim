@@ -25,18 +25,21 @@ Plug 'ntpeters/vim-better-whitespace'
 " https://github.com/ncm2/ncm2
 " all syntaxes: https://github.com/ncm2/ncm2/wiki
 
-Plug 'ncm2/ncm2'
-Plug 'roxma/nvim-yarp'
-Plug 'ncm2/ncm2-bufword'
-Plug 'ncm2/ncm2-path'
-Plug 'ncm2/ncm2-tern',  {'do': 'npm install'}
-Plug 'ncm2/ncm2-cssomni'
-Plug 'ncm2/ncm2-racer'
+" Plug 'ncm2/ncm2'
+" Plug 'roxma/nvim-yarp'
+" Plug 'ncm2/ncm2-bufword'
+" Plug 'ncm2/ncm2-path'
+" Plug 'ncm2/ncm2-tern',  {'do': 'npm install'}
+" Plug 'ncm2/ncm2-cssomni'
+" Plug 'ncm2/ncm2-racer'
+
+" True snippet and additional text editing support
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 " expanding autocompletion
 " https://github.com/ncm2/ncm2-snipmate
 
-Plug 'ncm2/ncm2-snipmate'
+" Plug 'ncm2/ncm2-snipmate'
 Plug 'tomtom/tlib_vim'
 Plug 'marcweber/vim-addon-mw-utils'
 Plug 'garbas/vim-snipmate'
@@ -71,14 +74,14 @@ filetype on
 set relativenumber
 
 " expand completion on <Return>
-inoremap <silent> <expr> <CR> ncm2_snipmate#expand_or("\<CR>", 'n')
+" inoremap <silent> <expr> <CR> ncm2_snipmate#expand_or("\<CR>", 'n')
 
 " scrolling thru autocompletion menu
 inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 
 " enable autocompletion for all buffers
-autocmd BufEnter * call ncm2#enable_for_buffer()
+" autocmd BufEnter * call ncm2#enable_for_buffer()
 set shortmess+=c
 set completeopt=noinsert,menuone,noselect
 
@@ -93,6 +96,7 @@ set termguicolors
 set nojoinspaces " prevent two spaces in a row
 set splitbelow splitright " normal splits ffs
 set nostartofline " don't jump to first char of the line
+set hidden
 
 command! Q q " map that annoying shift Q to normal q
 
