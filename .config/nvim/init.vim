@@ -81,6 +81,9 @@ Plug 'maxmellon/vim-jsx-pretty'
 "Plug 'aurieh/discord.nvim', { 'do': ':UpdateRemotePlugins'}
 " currently broken
 
+" Delete a buffer without changing the layout
+Plug 'qpkorr/vim-bufkill'
+
 call plug#end()
 filetype on
 set relativenumber
@@ -118,7 +121,8 @@ command! Q q " map that annoying shift Q to normal q
 nnoremap <Leader>k :bnext!<CR>
 nnoremap <Leader>j :bprevious!<CR>
 nnoremap <Leader>l :CtrlPBuffer<CR>
-nnoremap <Leader>q :bdelete<CR>
+" use bufkill for buffer deletion
+nnoremap <Leader>q :BD<CR>
 nnoremap <Leader>Q :bdelete!<CR>
 
 " yank to system clipboard
