@@ -36,6 +36,7 @@ Plug 'ntpeters/vim-better-whitespace'
 " True snippet and additional text editing support
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'sheerun/vim-polyglot'
+" :CocInstall coc-rls coc-json coc-explorer coc-tsserver
 
 " File Explorer
 Plug 'preservim/nerdtree'
