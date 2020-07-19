@@ -37,14 +37,7 @@ Plug 'ntpeters/vim-better-whitespace'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'sheerun/vim-polyglot'
 
-" True snippet and additional text editing support
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
-Plug 'sheerun/vim-polyglot'
-
-" Tagbar
-Plug 'liuchengxu/vista.vim'
-
-" File Exporer
+" File Explorer
 Plug 'preservim/nerdtree'
 Plug 'kevinhwang91/rnvimr', {'do': 'make sync'}
 
