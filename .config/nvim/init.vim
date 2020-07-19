@@ -258,6 +258,9 @@ else
   set signcolumn=yes
 endif
 
+" signcolumn color for codeschool theme
+highlight SignColumn guibg=#23292d
+
 inoremap <silent><expr> <TAB>
       \ pumvisible() ? "\<C-n>" :
       \ <SID>check_back_space() ? "\<TAB>" :
