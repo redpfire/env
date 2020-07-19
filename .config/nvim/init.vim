@@ -125,6 +125,9 @@ nnoremap <Leader>l :CtrlPBuffer<CR>
 nnoremap <Leader>q :BD<CR>
 nnoremap <Leader>Q :bdelete!<CR>
 
+" focus nerdtree
+nnoremap <Leader>t :NERDTreeFocus<CR>
+
 " yank to system clipboard
 vnoremap <Leader>y "*y
 
