@@ -82,23 +82,25 @@
     m:0x8 + c:113
     Alt + Left
 
-#Page Down
-"xvkbd -xsendevent -text '\[Page_Down]'"
-    m:0x8 + c:116
-    Alt + Down
+##Page Down
+#"xvkbd -xsendevent -text '\[Page_Down]'"
+#    m:0x8 + c:116
+#    Alt + Down
 
-#Page Up
-"xvkbd -xsendevent -text '\[Page_Up]'"
-    m:0x8 + c:111
-    Alt + Up
+##Page Up
+#"xvkbd -xsendevent -text '\[Page_Up]'"
+#    m:0x8 + c:111
+#    Alt + Up
 
 # for scrolling in the terminal
 "xvkbd -xsendevent -text '\[Shift]\[Page_Up]'"
-    m:0x9 + c:111
-    Shift+Alt + Up
+    # m:0x9 + c:111
+    m:0x8 + c:111
+    Alt + Up
 "xvkbd -xsendevent -text '\[Shift]\[Page_Down]'"
-    m:0x9 + c:116
-    Shift+Alt + Down
+    # m:0x9 + c:116
+    m:0x8 + c:116
+    Alt + Down
 
 # shift extension
 "xvkbd -xsendevent -text '\[Shift]'"
