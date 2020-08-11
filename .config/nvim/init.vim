@@ -62,6 +62,8 @@ Plug 'morhetz/gruvbox'
 " codeschool theme
 Plug 'antlypls/vim-colors-codeschool'
 
+Plug 'sonph/onehalf', {'rtp': 'vim/'}
+
 " light theme
 Plug 'ayu-theme/ayu-vim'
 
@@ -167,7 +169,9 @@ let ayucolor="light"
 " colorscheme gruvbox
 
 " codeschool for a brief refresh
-colorscheme codeschool
+" colorscheme codeschool
+
+colorscheme onehalfdark
 
 " line at 80'th column ; this is optimal for a habit of writing good length
 " code
@@ -192,7 +196,11 @@ let g:airline_left_sep = ' '
 let g:airline_left_alt_sep = '|'
 let g:airline_right_sep = ' '
 let g:airline_right_alt_sep = '|'
-let g:airline_theme= 'gruvbox'
+" gruvbox airline theme
+" let g:airline_theme= 'gruvbox'
+
+" gruvbox airline theme
+let g:airline_theme= 'onehalfdark'
 
 " fuzzy finder
 nnoremap <Leader>e :CtrlP<CR>
