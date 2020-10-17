@@ -25,18 +25,27 @@ Plug 'ntpeters/vim-better-whitespace'
 " https://github.com/ncm2/ncm2
 " all syntaxes: https://github.com/ncm2/ncm2/wiki
 
-Plug 'ncm2/ncm2'
-Plug 'roxma/nvim-yarp'
-Plug 'ncm2/ncm2-bufword'
-Plug 'ncm2/ncm2-path'
-Plug 'ncm2/ncm2-tern',  {'do': 'npm install'}
-Plug 'ncm2/ncm2-cssomni'
-Plug 'ncm2/ncm2-racer'
+" Plug 'ncm2/ncm2'
+" Plug 'roxma/nvim-yarp'
+" Plug 'ncm2/ncm2-bufword'
+" Plug 'ncm2/ncm2-path'
+" Plug 'ncm2/ncm2-tern',  {'do': 'npm install'}
+" Plug 'ncm2/ncm2-cssomni'
+" Plug 'ncm2/ncm2-racer'
+
+" True snippet and additional text editing support
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'sheerun/vim-polyglot'
+" :CocInstall coc-rls coc-json coc-explorer coc-tsserver
+
+" File Explorer
+Plug 'preservim/nerdtree'
+Plug 'kevinhwang91/rnvimr', {'do': 'make sync'}
 
 " expanding autocompletion
 " https://github.com/ncm2/ncm2-snipmate
 
-Plug 'ncm2/ncm2-snipmate'
+" Plug 'ncm2/ncm2-snipmate'
 Plug 'tomtom/tlib_vim'
 Plug 'marcweber/vim-addon-mw-utils'
 Plug 'garbas/vim-snipmate'
@@ -53,6 +62,8 @@ Plug 'morhetz/gruvbox'
 " codeschool theme
 Plug 'antlypls/vim-colors-codeschool'
 
+Plug 'sonph/onehalf', {'rtp': 'vim/'}
+
 " light theme
 Plug 'ayu-theme/ayu-vim'
 
@@ -66,19 +77,22 @@ Plug 'maxmellon/vim-jsx-pretty'
 "Plug 'aurieh/discord.nvim', { 'do': ':UpdateRemotePlugins'}
 " currently broken
 
+" Delete a buffer without changing the layout
+Plug 'qpkorr/vim-bufkill'
+
 call plug#end()
 filetype on
 set relativenumber
 
 " expand completion on <Return>
-inoremap <silent> <expr> <CR> ncm2_snipmate#expand_or("\<CR>", 'n')
+" inoremap <silent> <expr> <CR> ncm2_snipmate#expand_or("\<CR>", 'n')
 
 " scrolling thru autocompletion menu
 inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 
 " enable autocompletion for all buffers
-autocmd BufEnter * call ncm2#enable_for_buffer()
+" autocmd BufEnter * call ncm2#enable_for_buffer()
 set shortmess+=c
 set completeopt=noinsert,menuone,noselect
 
@@ -93,6 +107,9 @@ set termguicolors
 set nojoinspaces " prevent two spaces in a row
 set splitbelow splitright " normal splits ffs
 set nostartofline " don't jump to first char of the line
+set hidden nobackup nowritebackup
+set cmdheight=2 " more space for messages
+set updatetime=300
 
 command! Q q " map that annoying shift Q to normal q
 
@@ -100,8 +117,12 @@ command! Q q " map that annoying shift Q to normal q
 nnoremap <Leader>k :bnext!<CR>
 nnoremap <Leader>j :bprevious!<CR>
 nnoremap <Leader>l :CtrlPBuffer<CR>
-nnoremap <Leader>q :bdelete<CR>
+" use bufkill for buffer deletion
+nnoremap <Leader>q :BD<CR>
 nnoremap <Leader>Q :bdelete!<CR>
+
+" focus nerdtree
+nnoremap <Leader>t :NERDTreeFocus<CR>
 
 " yank to system clipboard
 vnoremap <Leader>y "*y
@@ -148,7 +169,9 @@ let ayucolor="light"
 " colorscheme gruvbox
 
 " codeschool for a brief refresh
-colorscheme codeschool
+" colorscheme codeschool
+
+colorscheme onehalfdark
 
 " line at 80'th column ; this is optimal for a habit of writing good length
 " code
@@ -173,7 +196,11 @@ let g:airline_left_sep = ' '
 let g:airline_left_alt_sep = '|'
 let g:airline_right_sep = ' '
 let g:airline_right_alt_sep = '|'
-let g:airline_theme= 'gruvbox'
+" gruvbox airline theme
+" let g:airline_theme= 'gruvbox'
+
+" gruvbox airline theme
+let g:airline_theme= 'onehalfdark'
 
 " fuzzy finder
 nnoremap <Leader>e :CtrlP<CR>
@@ -211,3 +238,99 @@ function! ArdStatusLine()
     return line
 endfunction
 autocmd BufNewFile,BufRead,BufEnter *.ino let g:airline_section_x='%{ArdStatusLine()}'
+
+" Highlights for errors
+highlight QuickFixLine cterm=bold ctermfg=none ctermbg=none guifg=none
+highlight CocErrorVirtualText  cterm=bold ctermfg=none ctermbg=none guifg=#fb4934
+highlight CocWarningVirtualText  cterm=bold ctermfg=none ctermbg=none guifg=#fabd2f
+highlight CocInfoVirtualText  cterm=bold ctermfg=none ctermbg=none guifg=#83a598
+highlight CocHintVirtualText  cterm=bold ctermfg=none ctermbg=none guifg=#8ec07c
+highlight CocHighlightText  cterm=bold ctermfg=none ctermbg=none guifg=none guibg=#3c3836
+
+" Yank Highlights
+hi HighlightedyankRegion term=bold ctermbg=0 guibg=#cc241d
+
+" Spell Checker Settings
+" Remap for do codeAction of selected region
+function! s:cocActionsOpenFromSelected(type) abort
+  execute 'CocCommand actions.open ' . a:type
+endfunction
+xmap <silent> <leader>a :<C-u>execute 'CocCommand actions.open ' . visualmode()<CR>
+nmap <silent> <leader>a :<C-u>set operatorfunc=<SID>cocActionsOpenFromSelected<CR>g@
+
+" Always show the signcolumn, otherwise it would shift the text each time
+" diagnostics appear/become resolved.
+if has("patch-8.1.1564")
+  " Recently vim can merge signcolumn and number column into one
+  set signcolumn=number
+else
+  set signcolumn=yes
+endif
+
+" signcolumn color for codeschool theme
+highlight SignColumn guibg=#23292d
+
+inoremap <silent><expr> <TAB>
+      \ pumvisible() ? "\<C-n>" :
+      \ <SID>check_back_space() ? "\<TAB>" :
+      \ coc#refresh()
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
+" Use <c-space> to trigger completion.
+inoremap <silent><expr> <c-space> coc#refresh()
+
+" Use <cr> to confirm completion, `<C-g>u` means break undo chain at current
+" position. Coc only does snippet and additional edit on confirm.
+" <cr> could be remapped by other vim plugin, try `:verbose imap <CR>`.
+if exists('*complete_info')
+  inoremap <expr> <cr> complete_info()["selected"] != "-1" ? "\<C-y>" : "\<C-g>u\<CR>"
+else
+  inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+endif
+
+" Highlight the symbol and its references when holding the cursor.
+autocmd CursorHold * silent call CocActionAsync('highlight')
+
+" Symbol renaming.
+nmap <leader>rn <Plug>(coc-rename)
+
+" Highlight the symbol and its references when holding the cursor.
+autocmd CursorHold * silent call CocActionAsync('highlight')
+
+" Add `:Format` command to format current buffer.
+command! -nargs=0 Format :call CocAction('format')
+
+" Add `:Fold` command to fold current buffer.
+command! -nargs=? Fold :call     CocAction('fold', <f-args>)
+
+" Add `:OR` command for organize imports of the current buffer.
+command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organizeImport')
+
+" Polyglot
+let g:go_highlight_build_constraints = 1
+let g:go_highlight_extra_types = 1
+let g:go_highlight_fields = 1
+let g:go_highlight_functions = 1
+let g:go_highlight_methods = 1
+let g:go_highlight_operators = 1
+let g:go_highlight_structs = 1
+let g:go_highlight_types = 1
+let g:go_highlight_function_parameters = 1
+let g:go_highlight_function_calls = 1
+let g:go_highlight_generate_tags = 1
+let g:go_highlight_format_strings = 1
+let g:go_highlight_variable_declarations = 1
+let g:go_auto_sameids = 1
+
+" Open nerdtree when vim is launched with a directory
+autocmd StdinReadPre * let s:std_in=1
+autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | exe 'cd '.argv()[0] | endif
+let g:NERDTreeWinSize=40 " nerdtree size
+
+" close vim if the only window left is nerdtree
+autocmd BufEnter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
