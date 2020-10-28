@@ -64,8 +64,10 @@ Plug 'antlypls/vim-colors-codeschool'
 
 Plug 'sonph/onehalf', {'rtp': 'vim/'}
 
+Plug 'dracula/vim'
+
 " light theme
-Plug 'ayu-theme/ayu-vim'
+" Plug 'ayu-theme/ayu-vim'
 
 " gcc for one line; gc for multiple
 Plug 'tpope/vim-commentary'
