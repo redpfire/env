@@ -138,7 +138,7 @@ map <Leader><Tab> <Esc>/<++><CR>"_c4l
 map <Leader>/ :let @/ = ""<CR>
 
 " trailing whitespace highlighting
-highlight ExtraWhitespace ctermbg=white
+highlight ExtraWhitespace ctermbg=16
 let g:better_whitespace_enabled=1
 let g:strip_whitespace_on_save=1
 let g:strip_whitespace_confirm=0
@@ -173,7 +173,11 @@ let ayucolor="light"
 " codeschool for a brief refresh
 " colorscheme codeschool
 
-colorscheme onehalfdark
+" colorscheme onehalfdark
+
+colorscheme dracula
+highlight Normal guibg=black
+let g:airline_theme='base16_grayscale'
 
 " line at 80'th column ; this is optimal for a habit of writing good length
 " code
@@ -202,7 +206,7 @@ let g:airline_right_alt_sep = '|'
 " let g:airline_theme= 'gruvbox'
 
 " gruvbox airline theme
-let g:airline_theme= 'onehalfdark'
+" let g:airline_theme= 'onehalfdark'
 
 " fuzzy finder
 nnoremap <Leader>e :CtrlP<CR>
