@@ -12,6 +12,7 @@ case "$1" in
         url=`curl -s -H "token: $token" -F"files[]=@$path" \
             https://my.namejeff.com/api/upload | jq -r '.files[0].url'`
         printf $url | xclip -sel c
+        printf $url | xclip
         notify-send "Screenshot taken"
     ;;
     *)
