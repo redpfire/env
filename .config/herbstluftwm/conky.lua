@@ -37,15 +37,15 @@ memIcon = ' ' .. preIcon .. '' .. postIcon .. ' '
 
 battery = [[\
 ${if_match ${battery_percent}<=15}\
-]] .. batteryCritical .. '${battery_percent}%' .. [[
+]] .. batteryCritical .. '++${battery_percent}%' .. [[
 ${else}${if_match ${battery_percent}<=25}\
-]] .. batteryQuarter .. '${battery_percent}%' .. [[
+]] .. batteryQuarter .. '++${battery_percent}%' .. [[
 ${else}${if_match ${battery_percent}<=50}\
-]] .. batteryHalf .. '${battery_percent}%' .. [[
+]] .. batteryHalf .. '++${battery_percent}%' .. [[
 ${else}${if_match ${battery_percent}<=75}\
-]] .. batteryThreeQuarters .. '${battery_percent}%' .. [[
+]] .. batteryThreeQuarters .. '++${battery_percent}%' .. [[
 ${else}${if_match ${battery_percent}>75}\
-]] .. batteryFull .. '${battery_percent}%' .. [[
+]] .. batteryFull .. '++${battery_percent}%' .. [[
 ${endif}${endif}${endif}${endif}${endif}\
 ]]
 
@@ -59,6 +59,8 @@ Execute Conky
 
 conky.text = [[\
 ]] .. conkyPre .. [[\
+ \
+]] .. '[${battery_short}]' .. [[\
  \
 ]] .. battery .. [[\
  \

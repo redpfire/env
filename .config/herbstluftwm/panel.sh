@@ -154,7 +154,10 @@ hc pad $monitor 0 0 $panel_height
                 IFS=$'\t' read -ra tags <<< "$(hc tag_status $monitor)"
                 ;;
             conky)
-                conky="${cmd[@]:1}"
+                awesome=''
+                conky="$(echo ${cmd[@]:1} | sed -e \
+        's/\[C.*\].*++/ ^fn(Font Awesome 5 Free:style=Solid:pixelsize=10)^fn() /' \
+                    -e 's/\[.*\]//' -e 's/++//')"
                 ;;
             date)
                 #echo "resetting date" >&2
