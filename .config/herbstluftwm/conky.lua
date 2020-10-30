@@ -25,7 +25,7 @@ Segment
 
 conkyPre = 'conky\t^fg(\\#ffffff)'
 timeIcon     = ' ' .. preIcon .. '' .. postIcon .. ' '
-ssidIcon 	 = ' ' .. preIcon .. ' ' .. postIcon
+ssidIcon 	 = ' ' .. preIcon .. '' .. postIcon .. ' '
 
 batteryFull 			= ' ' .. preIcon .. '' .. postIcon .. ' '
 batteryThreeQuarters 	= ' ' .. preIcon .. '' .. postIcon .. ' '
