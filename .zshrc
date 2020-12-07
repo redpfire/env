@@ -21,6 +21,7 @@ TYPEWRITTEN_RELATIVE_PATH='adaptive'
 TYPEWRITTEN_CURSOR='terminal'
 
 TYPEWRITTEN_COLOR_MAPPINGS='secondary:default;info_negative:white'
+[ -e "$HOME/.env/.var/prompt" ] && export TYPEWRITTEN_RIGHT_PROMPT_PREFIX="[`cat $HOME/.env/.var/prompt`] "
 
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
@@ -84,7 +85,7 @@ plugins=(git zsh-autosuggestions zsh-syntax-highlighting)
 
 source $ZSH/oh-my-zsh.sh
 
-[ -e "$HOME/.env/.var/prompt" ] && export PS1="(`cat $HOME/.env/.var/prompt`) $PS1"
+# [ -e "$HOME/.env/.var/prompt" ] && export PS1="(`cat $HOME/.env/.var/prompt`) $PS1"
 
 # User configuration
 
