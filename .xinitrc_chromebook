@@ -39,8 +39,8 @@ fi
 
 ~/.bin/poweroff.py &
 
+[ \( -z $WM \) -a \( -e $HOME/.env/.var/wm \) ] && WM=`cat $HOME/.env/.var/wm`
 : ${WM:=qtile}
-[ -e $HOME/.env/.var/wm ] && WM=`cat $HOME/.env/.var/wm`
 
 [ $WM = "berry" ] && sxhkd -c $HOME/.config/berry/sxhkdrc &
 
