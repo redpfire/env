@@ -13,7 +13,14 @@ setopt PUSHD_SILENT
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
-ZSH_THEME="lambda"
+#ZSH_THEME="lambda"
+ZSH_THEME="typewritten"
+
+TYPEWRITTEN_SYMBOL='λ'
+TYPEWRITTEN_RELATIVE_PATH='adaptive'
+TYPEWRITTEN_CURSOR='terminal'
+
+TYPEWRITTEN_COLOR_MAPPINGS='secondary:default;info_negative:white'
 
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
