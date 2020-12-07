@@ -188,6 +188,13 @@ gp() {
     [ -z $br ] && echo "Not a git repository" && return 1
     if [ $br = "master" ]; then
         git push $@ || git push -u origin master $@
+        if [ $? != 0 ]; then
+            printf "Push is failing. Do you want to force(y/N)? "
+            read c
+            [ -z $c ] && return 1
+            [ \( $c != "y" \) -a \( $c != "Y" \) ] && return 1
+            git push --force $@
+        fi
     else
         printf "Do you want to push current branch to master(y/N)? "
         read c
