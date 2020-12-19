@@ -9,7 +9,7 @@ hc emit_hook reload
 Mod=Mod4
 
 hc keybind $Mod-Return spawn xst -c 'xst' & transset-df 0.86 -n xst
-hc keybind $Mod-r spawn dmenu_run -fn 'Iosevka Custom:pixelsize=12:antialias=true:autohint=true' -nb '#222222' -nf '#bbbbbb' -sb '#606060' -sf '#eeeeee'
+hc keybind $Mod-r spawn dmenu_run -fn 'Iosevka Custom:pixelsize=12:antialias=true:autohint=true' -nb '#000000' -nf '#ffffff' -sb '#ffffff' -sf '#000000'
 
 hc keybind $Mod-Control-q close
 hc keybind $Mod-Control-x quit

@@ -184,6 +184,12 @@ hi Normal guibg=#0a0b0b
 hi LineNr guibg=#0a0b0b
 hi SignColumn guibg=#0a0b0b
 
+hi ColorColumn guibg=#142823
+
+hi CocFloating guibg=#0a0b0b
+hi Pmenu guibg=#0a0b0b
+hi CursorLine guibg=#142823
+
 " signcolumn color for codeschool theme
 " highlight SignColumn guibg=#23292d
 
