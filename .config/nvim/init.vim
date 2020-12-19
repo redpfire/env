@@ -66,6 +66,8 @@ Plug 'sonph/onehalf', {'rtp': 'vim/'}
 
 Plug 'dracula/vim'
 
+Plug 'J4CKR3D/Hypsteria'
+
 " light theme
 " Plug 'ayu-theme/ayu-vim'
 
@@ -175,8 +177,16 @@ let ayucolor="light"
 
 " colorscheme onehalfdark
 
-colorscheme dracula
-highlight Normal guibg=black
+" colorscheme dracula
+
+colorscheme hypsteria
+hi Normal guibg=#0a0b0b
+hi LineNr guibg=#0a0b0b
+hi SignColumn guibg=#0a0b0b
+
+" signcolumn color for codeschool theme
+" highlight SignColumn guibg=#23292d
+
 let g:airline_theme='base16_grayscale'
 
 " line at 80'th column ; this is optimal for a habit of writing good length
@@ -273,8 +283,6 @@ else
   set signcolumn=yes
 endif
 
-" signcolumn color for codeschool theme
-highlight SignColumn guibg=#23292d
 
 inoremap <silent><expr> <TAB>
       \ pumvisible() ? "\<C-n>" :
