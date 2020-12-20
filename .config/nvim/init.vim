@@ -193,7 +193,8 @@ hi CursorLine guibg=#142823
 " signcolumn color for codeschool theme
 " highlight SignColumn guibg=#23292d
 
-let g:airline_theme='base16_grayscale'
+" let g:airline_theme='base16_grayscale'
+let g:airline_theme='ayu_dark'
 
 " line at 80'th column ; this is optimal for a habit of writing good length
 " code
