@@ -57,14 +57,14 @@ Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 
 " gruvbox theme
-Plug 'morhetz/gruvbox'
+" Plug 'morhetz/gruvbox'
 
 " codeschool theme
-Plug 'antlypls/vim-colors-codeschool'
+" Plug 'antlypls/vim-colors-codeschool'
 
-Plug 'sonph/onehalf', {'rtp': 'vim/'}
+" Plug 'sonph/onehalf', {'rtp': 'vim/'}
 
-Plug 'dracula/vim'
+" Plug 'dracula/vim'
 
 Plug 'J4CKR3D/Hypsteria'
 
