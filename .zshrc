@@ -208,3 +208,13 @@ gp() {
         git push && git branch -d $br
     fi
 }
+
+# btrfs
+alias bf='sudo btrfs fi'
+alias bu='sudo btrfs fi usage'
+alias busage=bu
+alias bdf='sudo btrfs fi df'
+alias bdu='sudo btrfs fi du'
+
+alias bs='sudo btrfs subvol'
+alias bsl='sudo btrfs subvol list'
