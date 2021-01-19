@@ -53,7 +53,8 @@ hc keybind $Mod-period use_index +1 --skip-visible
 hc keybind $Mod-comma  use_index -1 --skip-visible
 
 # hc keybind $Mod-f fullscreen toggle
-hc keybind $Mod-g floating toggle
+hc keybind $Mod-g set_attr clients.focus.floating toggle
+hc keybind $Mod-Shift-g floating toggle
 hc keybind $Mod-t pseudotile toggle
 
 hc keybind $Mod-Ctrl-k resize up
