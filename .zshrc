@@ -114,6 +114,10 @@ source $ZSH/oh-my-zsh.sh
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 alias c='clear'
 
+# fix HOME and END
+bindkey "\033[1~" beginning-of-line
+bindkey "\033[4~" end-of-line
+
 # supplement ls to exa
 if [ \( -e /bin/exa \) -o \( -e /usr/bin/exa \) ]; then
     alias ls='exa' # a modern replacement for ls
